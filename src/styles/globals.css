@@ -2,85 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f2f4f5;
+  --background-lnb: #1c2025;
+  --background-alert: #1c202580;
+  --background-con: #ffffff;
+  --foreground: #000;
+  --primary1: #e7faf6;
+  --primary2: #06c8bb;
+  --primary3: #00b59f;
+  --primary4: #0bc409;
+  --secondary-1: #e7ecf3;
+  --secondary-2: #d4dbe4;
+  --secondary-3: #b0bccc;
+  --secondary-4: #a9b7c9;
+  --secondary-5: #70839e;
+  --secondary-6: #60799a;
+  --secondary-7: #334a6c;
+  --secondary-8: #20325a;
+  --secondary-9: #1a233b;
+  --gray-0: #f6f7f8;
+  --gray-1: #e9edf0;
+  --gray-2: #dadee1;
+  --gray-3: #cbcfd2;
+  --gray-4: #adb1b4;
+  --gray-5: #8f9396;
+  --gray-6: #717578;
+  --gray-7: #53575a;
+  --gray-8: #35393c;
+  --gray-9: #171b1e;
+  --white: #fff;
+  --gradient: linear-gradient(
+    84deg,
+    rgba(11, 196, 9, 0) -99.58%,
+    #0bc409 -70.18%,
+    #06c8bb 110.41%
+  );
+  --radius: 0.5rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  /* font-size: 10px; */
 }
-
+html,
 body {
+  height: 100%;
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Pretendard", sans-serif;
 }
-
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 10% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
-  }
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-  }
+#__next {
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+main {
+  width: 100%;
+}
+.dark {
+  --background: #e8ebee;
+  --gradient: linear-gradient(
+    84deg,
+    rgba(0, 136, 0, 0) -99.58%,
+    rgba(0, 136, 0, 0.25) -70.18%,
+    #06877a 110.41%
+  );
 }
