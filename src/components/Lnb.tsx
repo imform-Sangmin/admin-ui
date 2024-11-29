@@ -7,7 +7,15 @@ export const Lnb = () => {
         <div className="pt-[60px] pb-[52px]">
           <Logo className="h-[19px] m-auto" />
         </div>
-        <nav></nav>
+        <nav>
+          <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </nav>
       </div>
     </section>
   );

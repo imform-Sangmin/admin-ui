@@ -1,6 +1,8 @@
+import { cva, VariantProps } from "class-variance-authority";
 import dynamic from "next/dynamic";
 
 const ICON_MAP = {
+  app: () => import("@/assets/icons/ic_app.svg"),
   dashboard: () => import("@/assets/icons/ic_dashboard.svg"),
   content: () => import("@/assets/icons/ic_content.svg"),
   money: () => import("@/assets/icons/ic_money.svg"),
@@ -30,14 +32,44 @@ const ICON_MAP = {
   check: () => import("@/assets/icons/ic_check.svg"),
 };
 
-interface IconPropsType extends React.SVGAttributes<HTMLOrSVGElement> {
+const iconVariants = cva("", {
+  variants: {
+    variant: {
+      default: "",
+    },
+    size: {
+      default: "w-20",
+      sm: "",
+      lg: "w-24",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+    size: "default",
+  },
+});
+
+interface IconPropsType
+  extends React.SVGAttributes<HTMLOrSVGElement>,
+    VariantProps<typeof iconVariants> {
   type: keyof typeof ICON_MAP;
 }
 
-export const Icon = ({ type, ...props }: IconPropsType) => {
+export const Icon = ({
+  type,
+  className,
+  variant,
+  size,
+  ...props
+}: IconPropsType) => {
   const IconComponent = dynamic(ICON_MAP[type], {
     loading: () => <></>,
   });
 
-  return <IconComponent {...props} />;
+  return (
+    <IconComponent
+      className={iconVariants({ variant, size, className })}
+      {...props}
+    />
+  );
 };

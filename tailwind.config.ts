@@ -2,6 +2,7 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
+  presets: [require("tailwindcss-preset-px-to-rem")],
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,7 +10,13 @@ export default {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        gradient: "var(--gradient)",
+        "gradient-dark": "var(--gradient-dark)",
+      },
       colors: {
+        white: "#fff",
+        black: "#000",
         background: {
           DEFAULT: "var(--background)",
           lnb: "var(--background-lnb)",
@@ -58,6 +65,16 @@ export default {
           yellow: "#FFC45B",
           blue: "#0560FD",
           green: "#0BC274",
+        },
+        sidebar: {
+          DEFAULT: "hsl(var(--sidebar-background))",
+          foreground: "hsl(var(--sidebar-foreground))",
+          primary: "hsl(var(--sidebar-primary))",
+          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
+          accent: "hsl(var(--sidebar-accent))",
+          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
+          border: "hsl(var(--sidebar-border))",
+          ring: "hsl(var(--sidebar-ring))",
         },
       },
       borderRadius: {

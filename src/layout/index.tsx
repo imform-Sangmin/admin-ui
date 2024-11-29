@@ -1,4 +1,5 @@
-import { Lnb } from "@/components/Lnb";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { CustomSidebar } from "@/components/CustomSidebar";
 
 interface Props {
   children: any;
@@ -7,8 +8,10 @@ interface Props {
 export const Layout = (props: Props) => {
   return (
     <>
-      <Lnb />
-      <main>{props.children}</main>
+      <SidebarProvider>
+        <CustomSidebar />
+        <main>{props.children}</main>
+      </SidebarProvider>
     </>
   );
 };
