@@ -1,22 +1,22 @@
-import { Icon } from "../Icons";
+import { Icon } from "../components/Icons";
 
 export const MenuList = [
-  { title: "대시보드", icon: <Icon type="dashboard" />, url: "#" },
+  { title: "대시보드", icon: <Icon type="dashboard" />, url: "/dashboard" },
   {
     title: "앱 관리",
     icon: <Icon type="app" />,
     sub: [
       {
         title: "스플래시 화면 관리",
-        url: "#",
+        url: "/app/splash",
       },
       {
         title: "로그인 화면 관리",
-        url: "#",
+        url: "/app/login",
       },
       {
         title: "앱 구동 관리",
-        url: "#",
+        url: "/app/running",
       },
     ],
   },

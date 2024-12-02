@@ -6,23 +6,26 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
-} from "./ui/sidebar";
+} from "../ui/sidebar";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "./ui/collapsible";
+} from "../ui/collapsible";
 
-import { Icon } from "./Icons";
-import { MenuList } from "./Sidebar/consts";
+import { Icon } from "../Icons";
+import { MenuList } from "../../consts/MenuList";
 
 import Logo from "@/assets/images/logo.svg";
+import Link from "next/link";
 
 export const CustomSidebar = () => {
   return (
     <Sidebar>
       <SidebarHeader className="pt-60 pb-52">
-        <Logo className="h-[19px] m-auto" />
+        <Link href="/">
+          <Logo className="h-[19px] m-auto" />
+        </Link>
       </SidebarHeader>
       <SidebarContent className="overflow-x-hidden">
         <SidebarMenu>
