@@ -65,11 +65,11 @@ export const CustomSidebar = () => {
               <SidebarMenuItem key={menu.title}>
                 <SidebarMenuButton
                   asChild
-                  className="h-auto px-24 py-20 text-white text-16 [&>svg]:size-20 gap-8 hover:bg-transparent hover:text-inherit"
+                  className="h-auto px-24 py-20 gap-8 text-white [&>svg]:size-20  hover:bg-transparent hover:text-inherit"
                 >
                   <a href={menu.url}>
                     {menu.icon}
-                    <span>{menu.title}</span>
+                    <span className="text-16">{menu.title}</span>
                   </a>
                 </SidebarMenuButton>
               </SidebarMenuItem>

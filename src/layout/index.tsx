@@ -1,6 +1,6 @@
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { CustomSidebar } from "@/components/Sidebar/CustomSidebar";
-import { Header } from "@/components/Header";
+import { CustomSidebar } from "@/components/Sidebar/index";
+import { Header } from "@/components/Header/index";
 
 interface Props {
   children: any;
@@ -11,7 +11,6 @@ export const Layout = (props: Props) => {
     <>
       <SidebarProvider>
         <CustomSidebar />
-        {/* <Sidebar /> */}
         <main>
           <Header />
           {props.children}
