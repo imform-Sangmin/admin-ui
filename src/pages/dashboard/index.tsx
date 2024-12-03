@@ -1,3 +1,9 @@
+import { Title } from "@/components/Title";
+
 export default function Dashboard() {
-  return <h1>대시보드</h1>;
+  return (
+    <>
+      <Title text="대시보드" />
+    </>
+  );
 }

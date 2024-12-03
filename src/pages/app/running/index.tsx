@@ -1,3 +1,9 @@
+import { Title } from "@/components/Title";
+
 export default function AppRunning() {
-  return <h1>앱 구동 관리</h1>;
+  return (
+    <>
+      <Title text="앱 구동 관리" />
+    </>
+  );
 }
