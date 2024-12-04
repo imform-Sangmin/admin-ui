@@ -33,7 +33,8 @@ export default function AppSplash() {
 
   return (
     <>
-      <Title text="앱 스플래시 화면 관리">
+      <Title>
+        <h1>스플래시 화면 관리</h1>
         <Button size={"lg"} className="px-35">
           신규등록
           <Icon type="plus" />

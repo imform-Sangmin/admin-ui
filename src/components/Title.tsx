@@ -1,16 +1,31 @@
+import { cva, VariantProps } from "class-variance-authority";
 import { ReactNode } from "react";
 
-export const Title = ({
-  text,
-  children,
-}: {
-  text: string;
-  children?: ReactNode;
-}) => {
+const TitleVariants = cva("px-56 title my-32", {
+  variants: {
+    variant: {
+      default: "",
+    },
+    size: {
+      default: "",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+    size: "default",
+  },
+});
+
+interface TitleProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof TitleVariants> {
+  children: ReactNode;
+}
+
+export const Title = ({ className, children, ...props }: TitleProps) => {
   return (
-    <section className="px-56 title my-32 flex justify-between items-center">
-      <h1>{text}</h1>
+    <div className={TitleVariants({ className })} {...props}>
       {children}
-    </section>
+    </div>
   );
 };

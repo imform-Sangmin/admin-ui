@@ -10,12 +10,10 @@ interface Props {
 export const Layout = ({ children }: Props) => {
   return (
     <>
+      <Header />
       <SidebarProvider>
         <CustomSidebar />
-        <main>
-          <Header />
-          {children}
-        </main>
+        <main>{children}</main>
       </SidebarProvider>
     </>
   );
