@@ -18,7 +18,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Table, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { useForm } from "react-hook-form";
 
 export default function AppSplash() {
@@ -32,7 +39,7 @@ export default function AppSplash() {
           <Icon type="plus" />
         </Button>
       </Title>
-      <section className="px-56 flex flex-col gap-16">
+      <section className="px-56 mb-16">
         <Form {...form}>
           <form className="flex gap-8 w-full py-24 px-40 rounded-12 bg-white">
             <div className="flex flex-col gap-16 flex-1">
@@ -125,7 +132,9 @@ export default function AppSplash() {
             </div>
           </form>
         </Form>
-        <div className="flex flex-col gap-16 py-20 rounded-12 bg-white">
+      </section>
+      <section className="px-56">
+        <div className="flex flex-col gap-16 py-20 rounded-12 bg-white h-full">
           <div className="ml-26 mr-40 flex justify-between items-end font-bold">
             <p>
               검색결과 <span className="text-states-red">00</span>건
@@ -177,6 +186,16 @@ export default function AppSplash() {
                 <TableHead>수정</TableHead>
               </TableRow>
             </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell
+                  colSpan={7}
+                  className="h-full text-center px-0 py-30"
+                >
+                  검색 결과가 없습니다.
+                </TableCell>
+              </TableRow>
+            </TableBody>
           </Table>
         </div>
       </section>
