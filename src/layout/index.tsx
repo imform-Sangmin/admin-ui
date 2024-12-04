@@ -1,4 +1,4 @@
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { CustomSidebar } from "@/components/Sidebar/index";
 import { Header } from "@/components/Header/index";
 import { ReactNode } from "react";
@@ -13,7 +13,10 @@ export const Layout = ({ children }: Props) => {
       <Header />
       <SidebarProvider>
         <CustomSidebar />
-        <main>{children}</main>
+        <main>
+          <SidebarTrigger />
+          {children}
+        </main>
       </SidebarProvider>
     </>
   );

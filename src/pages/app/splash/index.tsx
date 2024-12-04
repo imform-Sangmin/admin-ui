@@ -33,7 +33,7 @@ export default function AppSplash() {
 
   return (
     <>
-      <Title>
+      <Title className="flex justify-between">
         <h1>스플래시 화면 관리</h1>
         <Button size={"lg"} className="px-35">
           신규등록
