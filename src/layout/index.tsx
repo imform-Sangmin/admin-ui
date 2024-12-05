@@ -1,19 +1,19 @@
+import React from "react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { CustomSidebar } from "@/components/Sidebar/index";
-import { Header } from "@/components/Header/index";
-import { ReactNode } from "react";
+import { CustomSidebar } from "@/components/Sidebar";
+import { Header } from "@/components/Header";
 
 interface Props {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 export const Layout = ({ children }: Props) => {
   return (
     <>
-      <Header />
       <SidebarProvider>
         <CustomSidebar />
         <main>
+          <Header />
           <SidebarTrigger />
           {children}
         </main>

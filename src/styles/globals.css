@@ -53,7 +53,6 @@
     );
 
   --radius: 0.5rem;
-  --sidebar-width: 16rem;
 }
 
 html {
@@ -105,21 +104,21 @@ h3 {
 @layer base {
   :root {
     --sidebar-background: var(--gray-9);
-    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-foreground: var(--white);
     --sidebar-primary: 240 5.9% 10%;
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-accent-foreground: var(--primary2);
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
   .dark {
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-background: var(--gray-9);
+    --sidebar-foreground: var(--white);
     --sidebar-primary: 224.3 76.3% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: var(--primary2);
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
@@ -130,5 +129,13 @@ h3 {
   }
   body {
     /* @apply bg-background text-foreground; */
+  }
+}
+@layer base {
+  * {
+    /* @apply border-border; */
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
