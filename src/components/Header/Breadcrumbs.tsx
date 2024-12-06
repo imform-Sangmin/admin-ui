@@ -10,7 +10,7 @@ export const Breadcrumbs = () => {
 
   return (
     <>
-      <ul id="breadecrumb" className="flex gap-4 items-center">
+      <ul id="breadecrumb" className="flex gap-4 items-center text-secondary-8">
         <li className="text-secondary-8">
           <Link href={"/"}>
             <Icon type="home" />

@@ -1,5 +1,5 @@
 import React from "react";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { CustomSidebar } from "@/components/Sidebar";
 import { Header } from "@/components/Header";
 
@@ -14,7 +14,6 @@ export const Layout = ({ children }: Props) => {
         <CustomSidebar />
         <main>
           <Header />
-          <SidebarTrigger />
           {children}
         </main>
       </SidebarProvider>

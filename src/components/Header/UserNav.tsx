@@ -9,7 +9,7 @@ const userNavList = [
 
 export const UserNav = () => {
   return (
-    <div className="flex gap-20 text-secondary-8 [&>a]:flex [&>a]:gap-4 [&_svg]:text-secondary-6">
+    <div className="flex items-center gap-20 ml-auto text-secondary-8 [&>a]:flex [&>a]:gap-4 [&_svg]:text-secondary-6">
       {userNavList.map((list) => (
         <Link href={"#"} key={list.title}>
           {list.icon}

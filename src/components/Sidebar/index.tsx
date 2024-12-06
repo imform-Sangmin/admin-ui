@@ -13,8 +13,11 @@ import Logo from "@/assets/images/logo.svg";
 import { MenuList } from "@/consts/MenuList";
 import Link from "next/link";
 import { ToggleMenu } from "./ToggleMenu";
+import { usePathname } from "next/navigation";
 
 export const CustomSidebar = () => {
+  const paths = usePathname();
+
   return (
     <Sidebar>
       <SidebarHeader className="pt-60 pb-52">
@@ -26,22 +29,20 @@ export const CustomSidebar = () => {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {Object.values(MenuList).map((menu) =>
-                menu.sub && !menu.url ? (
-                  <SidebarMenuItem key={menu.title}>
+              {Object.values(MenuList).map((menu) => (
+                <SidebarMenuItem key={menu.title}>
+                  {menu.sub && !menu.url ? (
                     <ToggleMenu menulist={menu} />
-                  </SidebarMenuItem>
-                ) : (
-                  <SidebarMenuItem key={menu.title}>
-                    <Link href={menu.url || "/"}>
-                      <SidebarMenuButton>
+                  ) : (
+                    <SidebarMenuButton asChild isActive={menu.url === paths}>
+                      <Link href={menu.url || "/"}>
                         {menu.icon}
                         <span>{menu.title}</span>
-                      </SidebarMenuButton>
-                    </Link>
-                  </SidebarMenuItem>
-                )
-              )}
+                      </Link>
+                    </SidebarMenuButton>
+                  )}
+                </SidebarMenuItem>
+              ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

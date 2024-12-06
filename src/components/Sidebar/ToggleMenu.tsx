@@ -13,13 +13,17 @@ import {
   SidebarMenuSubItem,
 } from "../ui/sidebar";
 import { MenuType } from "@/consts/MenuList";
+import { usePathname } from "next/navigation";
 
 interface ToggleMenuProps {
   menulist: MenuType;
 }
 
 export const ToggleMenu = ({ menulist }: ToggleMenuProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const paths = usePathname();
+  const [isOpen, setIsOpen] = useState(
+    menulist.sub?.map((list) => list.url).includes(paths) || false
+  );
 
   return (
     <Collapsible
@@ -49,7 +53,7 @@ export const ToggleMenu = ({ menulist }: ToggleMenuProps) => {
         <SidebarMenuSub>
           {menulist.sub?.map((subMenu) => (
             <SidebarMenuSubItem key={subMenu.title}>
-              <SidebarMenuSubButton asChild>
+              <SidebarMenuSubButton asChild isActive={subMenu.url === paths}>
                 <Link href={subMenu.url}>
                   <span>{subMenu.title}</span>
                 </Link>
