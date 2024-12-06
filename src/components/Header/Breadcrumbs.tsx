@@ -8,9 +8,8 @@ export const Breadcrumbs = () => {
   const pathNames = paths.split("/").filter((path) => path);
   const pageInfo: MenuType = MenuList[pathNames[0]];
 
-  const isSubPage = !!pageInfo.sub;
-  const subPage = (isSubPage &&
-    pageInfo.sub!.find((sub) => sub.url === paths)) || { url: "", title: "" };
+  const isSubPage = pageInfo && pageInfo.sub ? true : false;
+  const subPage = isSubPage && pageInfo.sub?.find((sub) => sub.url === paths);
 
   return (
     <>
@@ -24,19 +23,21 @@ export const Breadcrumbs = () => {
           <li className="flex gap-4 items-center">
             <Icon type="up" className="text-secondary-8 rotate-90" />
             <Link
-              href={pageInfo.url || "/"}
+              href={pageInfo.url || ""}
               className={`${pageInfo.url === paths && "text-secondary-4"}`}
             >
               {pageInfo.title}
             </Link>
           </li>
         )}
-        {isSubPage && (
+        {subPage && (
           <li className="flex gap-4 items-center">
             <Icon type="up" className="text-secondary-8 rotate-90" />
             <Link
               href={subPage.url}
-              className={`${subPage.url === paths && "text-secondary-4"}`}
+              className={`${!subPage.url && "pointer-events-none"} ${
+                subPage.url === paths && "text-secondary-4"
+              }`}
             >
               {subPage.title}
             </Link>
