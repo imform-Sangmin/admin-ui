@@ -1,6 +1,6 @@
 import { Icon } from "../components/Icons";
 
-interface SubMenuType {
+export interface SubMenuType {
   title: string;
   url: string;
 }
