@@ -35,9 +35,7 @@ export const Breadcrumbs = () => {
             <Icon type="up" className="text-secondary-8 rotate-90" />
             <Link
               href={subPage.url}
-              className={`${!subPage.url && "pointer-events-none"} ${
-                subPage.url === paths && "text-secondary-4"
-              }`}
+              className={`${subPage.url === paths && "text-secondary-4"}`}
             >
               {subPage.title}
             </Link>
