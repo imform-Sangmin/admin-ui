@@ -40,16 +40,20 @@ export const MenuList: { [key: string]: MenuType } = {
     icon: <Icon type="content" />,
     sub: [
       {
-        title: "스플래시 화면 관리",
-        url: "/contents/splash",
+        title: "리그 관리",
+        url: "/contents/league",
       },
       {
-        title: "로그인 화면 관리",
-        url: "/contents/login",
+        title: "대회 관리",
+        url: "/contents/contest",
       },
       {
-        title: "앱 구동 관리",
-        url: "/contents/running",
+        title: "선수 관리",
+        url: "/contents/player",
+      },
+      {
+        title: "데이터센터 관리",
+        url: "/contents/dataCenter",
       },
     ],
   },
@@ -58,16 +62,24 @@ export const MenuList: { [key: string]: MenuType } = {
     icon: <Icon type="money" />,
     sub: [
       {
-        title: "스플래시 화면 관리",
-        url: "/asset/splash",
+        title: "디지털굿즈 관리",
+        url: "/asset/digitalGoods",
       },
       {
-        title: "로그인 화면 관리",
-        url: "/asset/login",
+        title: "레벨/등급 관리",
+        url: "/asset/level",
       },
       {
-        title: "앱 구동 관리",
-        url: "/asset/running",
+        title: "마켓 관리",
+        url: "/asset/market",
+      },
+      {
+        title: "쿠폰 관리(MASS)",
+        url: "/asset/couponMass",
+      },
+      {
+        title: "쿠폰 관리(타겟)",
+        url: "/asset/couponTarget",
       },
     ],
   },
@@ -76,16 +88,12 @@ export const MenuList: { [key: string]: MenuType } = {
     icon: <Icon type="member" />,
     sub: [
       {
-        title: "스플래시 화면 관리",
-        url: "/member/splash",
+        title: "회원 관리",
+        url: "/member/member",
       },
       {
-        title: "로그인 화면 관리",
-        url: "/member/login",
-      },
-      {
-        title: "앱 구동 관리",
-        url: "/member/running",
+        title: "TDTP 지급/차감 관리",
+        url: "/member/tdtp",
       },
     ],
   },
@@ -94,16 +102,16 @@ export const MenuList: { [key: string]: MenuType } = {
     icon: <Icon type="gift" />,
     sub: [
       {
-        title: "스플래시 화면 관리",
-        url: "/event/splash",
+        title: "래플 관리",
+        url: "/event/raffle",
       },
       {
-        title: "로그인 화면 관리",
-        url: "/event/login",
+        title: "친구추천 이벤트 관리",
+        url: "/event/recommend",
       },
       {
-        title: "앱 구동 관리",
-        url: "/event/running",
+        title: "래퍼럴 관리",
+        url: "/event/rafferel",
       },
     ],
   },
@@ -112,16 +120,32 @@ export const MenuList: { [key: string]: MenuType } = {
     icon: <Icon type="center" />,
     sub: [
       {
-        title: "스플래시 화면 관리",
-        url: "/support/splash",
+        title: "1:1 문의 관리",
+        url: "/support/contact",
       },
       {
-        title: "로그인 화면 관리",
-        url: "/support/login",
+        title: "공지사항 관리",
+        url: "/support/notice",
       },
       {
-        title: "앱 구동 관리",
-        url: "/support/running",
+        title: "FAQ 관리",
+        url: "/support/faq",
+      },
+      {
+        title: "팝업 관리",
+        url: "/support/popup",
+      },
+      {
+        title: "스티커 관리",
+        url: "/support/sticker",
+      },
+      {
+        title: "앱 푸시 관리",
+        url: "/support/appPush",
+      },
+      {
+        title: "약관 및 정책 관리",
+        url: "/support/policy",
       },
     ],
   },
@@ -130,16 +154,16 @@ export const MenuList: { [key: string]: MenuType } = {
     icon: <Icon type="graph" />,
     sub: [
       {
-        title: "스플래시 화면 관리",
-        url: "/statistics/splash",
+        title: "콘텐츠 통계",
+        url: "/statistics/contents",
       },
       {
-        title: "로그인 화면 관리",
-        url: "/statistics/login",
+        title: "회원 통계",
+        url: "/statistics/member",
       },
       {
-        title: "앱 구동 관리",
-        url: "/statistics/running",
+        title: "이벤트 통계",
+        url: "/statistics/event",
       },
     ],
   },

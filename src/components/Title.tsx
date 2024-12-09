@@ -1,4 +1,6 @@
+import { MenuList } from "@/consts/MenuList";
 import { cva, VariantProps } from "class-variance-authority";
+import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
 
 const TitleVariants = cva("px-56 title my-32", {
@@ -19,12 +21,20 @@ const TitleVariants = cva("px-56 title my-32", {
 interface TitleProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof TitleVariants> {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export const Title = ({ className, children, ...props }: TitleProps) => {
+  const paths = usePathname();
+  const pathNames = paths.split("/").filter((path) => path);
+  const title =
+    pathNames.length > 1
+      ? MenuList[pathNames[0]].sub?.find((sub) => sub.url === paths)?.title
+      : MenuList[pathNames[0]].title;
+
   return (
     <div className={TitleVariants({ className })} {...props}>
+      <h1>{title}</h1>
       {children}
     </div>
   );

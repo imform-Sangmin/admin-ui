@@ -12,10 +12,10 @@ export const Layout = ({ children }: Props) => {
     <>
       <SidebarProvider>
         <CustomSidebar />
-        <main>
+        <div className="flex-1">
           <Header />
-          {children}
-        </main>
+          <main>{children}</main>
+        </div>
       </SidebarProvider>
     </>
   );

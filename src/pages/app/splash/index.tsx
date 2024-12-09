@@ -2,13 +2,12 @@ import { Icon } from "@/components/Icons";
 import { Title } from "@/components/Title";
 import { Button } from "@/components/ui/button";
 
-export default function AppSplash() {
+export default function Page() {
   // const form = useForm();
 
   return (
     <>
       <Title className="flex justify-between">
-        <h1>스플래시 화면 관리</h1>
         <Button size={"lg"} className="px-35">
           신규등록
           <Icon type="plus" />
