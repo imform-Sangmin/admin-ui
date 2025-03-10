@@ -5,34 +5,34 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 
 :root {
-  --background: #f2f4f5;
-  --background-lnb: #1c2025;
-  --background-alert: #1c202580;
-  --background-con: #ffffff;
-  --foreground: #000;
-  --primary1: #e7faf6;
-  --primary2: #06c8bb;
-  --primary3: #00b59f;
-  --primary4: #0bc409;
-  --secondary-1: #e7ecf3;
-  --secondary-2: #d4dbe4;
-  --secondary-3: #b0bccc;
-  --secondary-4: #a9b7c9;
-  --secondary-5: #70839e;
-  --secondary-6: #60799a;
-  --secondary-7: #334a6c;
-  --secondary-8: #20325a;
-  --secondary-9: #1a233b;
-  --gray-0: #f6f7f8;
-  --gray-1: #e9edf0;
-  --gray-2: #dadee1;
-  --gray-3: #cbcfd2;
-  --gray-4: #adb1b4;
-  --gray-5: #8f9396;
-  --gray-6: #717578;
-  --gray-7: #53575a;
-  --gray-8: #35393c;
-  --gray-9: #171b1e;
+  --background: theme("colors.background.DEFAULT");
+  --background-lnb: theme("colors.background.lnb");
+  --background-alert: theme("colors.background.alert");
+  --background-con: theme("colors.background.con");
+  --foreground: theme("colors.foreground");
+  --primary-cyan-light: theme("colors.primary.cyan-light");
+  --primary-cyan: theme("colors.primary.cyan");
+  --primary-cyan-dark: theme("colors.primary.cyan-dark");
+  --primary-green: theme("colors.primary.green");
+  --secondary-100: theme("colors.secondary.1");
+  --secondary-200: theme("colors.secondary.2");
+  --secondary-300: theme("colors.secondary.3");
+  --secondary-400: theme("colors.secondary.4");
+  --secondary-500: theme("colors.secondary.5");
+  --secondary-600: theme("colors.secondary.6");
+  --secondary-700: theme("colors.secondary.7");
+  --secondary-800: theme("colors.secondary.8");
+  --secondary-900: theme("colors.secondary.9");
+  --gray-0: theme("colors.gray.0");
+  --gray-1: theme("colors.gray.1");
+  --gray-2: theme("colors.gray.2");
+  --gray-3: theme("colors.gray.3");
+  --gray-4: theme("colors.gray.4");
+  --gray-5: theme("colors.gray.5");
+  --gray-6: theme("colors.gray.6");
+  --gray-7: theme("colors.gray.7");
+  --gray-8: theme("colors.gray.8");
+  --gray-9: theme("colors.gray.9");
   --white: #fff;
   --gradient: linear-gradient(
     84deg,
@@ -41,6 +41,7 @@
     #06c8bb 110.41%
   );
   --gradient-dark: linear-gradient(
+      84deg,
       rgba(0, 136, 0, 0) -99.58%,
       rgba(0, 136, 0, 0.25) -70.18%,
       #06877a 110.41%
@@ -63,6 +64,7 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: "Pretendard", sans-serif;
+  font-size: 10px;
 }
 ::-webkit-scrollbar {
   width: 4px;
@@ -70,7 +72,7 @@ body {
 }
 ::-webkit-scrollbar-thumb {
   border-radius: 4px;
-  background-color: var(--primary4);
+  background-color: var(--primary-green);
 }
 ::-webkit-scrollbar-button {
 }
@@ -86,17 +88,17 @@ main {
 }
 
 h1 {
-  font-size: 36px;
+  font-size: 3.6rem;
   font-weight: 600;
   line-height: 1.3;
 }
 h2 {
-  font-size: 24px;
+  font-size: 2.4rem;
   font-weight: 500;
   line-height: 1.3;
 }
 h3 {
-  font-size: 20px;
+  font-size: 2rem;
   font-weight: 600;
   line-height: 1.3;
 }
@@ -108,7 +110,7 @@ h3 {
     --sidebar-primary: 240 5.9% 10%;
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: var(--primary2);
+    --sidebar-accent-foreground: var(--primary-cyan);
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
@@ -118,7 +120,7 @@ h3 {
     --sidebar-primary: 224.3 76.3% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: var(--primary2);
+    --sidebar-accent-foreground: var(--primary-cyan);
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }

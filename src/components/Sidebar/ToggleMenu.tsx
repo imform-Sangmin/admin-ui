@@ -33,10 +33,10 @@ export const ToggleMenu = ({ menulist }: ToggleMenuProps) => {
     >
       <CollapsibleTrigger
         asChild
-        className="flex justify-between items-center w-full px-24 py-20 text-white text-16"
+        className="flex justify-between items-center w-full px-[2.4rem] py-[2rem] text-white text-[1.6rem]"
       >
         <SidebarMenuButton>
-          <span className="flex gap-8 items-center text-16">
+          <span className="flex gap-[0.8rem] items-center text-[1.6rem]">
             {menulist.icon}
             {menulist.title}
           </span>

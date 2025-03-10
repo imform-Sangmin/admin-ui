@@ -20,9 +20,9 @@ export const CustomSidebar = () => {
 
   return (
     <Sidebar>
-      <SidebarHeader className="pt-60 pb-52">
+      <SidebarHeader className="pt-[6rem] pb-[5.2rem]">
         <Link href="/">
-          <Logo className="h-[19px] m-auto" />
+          <Logo className="h-[1.9rem] m-auto" />
         </Link>
       </SidebarHeader>
       <SidebarContent>

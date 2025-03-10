@@ -6,7 +6,7 @@ export default function Page() {
   return (
     <>
       <Title className="flex justify-between">
-        <Button size={"lg"} className="px-35">
+        <Button className="px-[3.5rem]">
           신규등록
           <Icon type="plus" />
         </Button>

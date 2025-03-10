@@ -13,14 +13,17 @@ export const Breadcrumbs = () => {
 
   return (
     <>
-      <ul id="breadecrumb" className="flex gap-4 items-center text-secondary-8">
+      <ul
+        id="breadecrumb"
+        className="flex gap-[0.4rem] items-center text-base text-secondary-8"
+      >
         <li className="text-secondary-8">
           <Link href={"/"}>
             <Icon type="home" />
           </Link>
         </li>
         {pageInfo && (
-          <li className="flex gap-4 items-center">
+          <li className="flex gap-[0.4rem] items-center">
             <Icon type="up" className="text-secondary-8 rotate-90" />
             <Link
               href={pageInfo.url || ""}
@@ -31,7 +34,7 @@ export const Breadcrumbs = () => {
           </li>
         )}
         {subPage && (
-          <li className="flex gap-4 items-center">
+          <li className="flex gap-[0.4rem] items-center">
             <Icon type="up" className="text-secondary-8 rotate-90" />
             <Link
               href={subPage.url}
