@@ -12,7 +12,6 @@ import {
 
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
-import { cva, VariantProps } from "class-variance-authority";
 
 const Form = FormProvider;
 
@@ -79,7 +78,7 @@ const FormItem = React.forwardRef<
 
   return (
     <FormItemContext.Provider value={{ id }}>
-      <div ref={ref} className={cn("space-y-2", className)} {...props} />
+      <div ref={ref} className={cn("", className)} {...props} />
     </FormItemContext.Provider>
   );
 });
@@ -87,17 +86,28 @@ FormItem.displayName = "FormItem";
 
 const FormLabel = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
->(({ className, ...props }, ref) => {
+  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> & {
+    required?: boolean;
+  }
+>(({ className, required, children, ...props }, ref) => {
   const { error, formItemId } = useFormField();
 
   return (
     <Label
       ref={ref}
-      className={cn(error && "text-destructive", className)}
+      className={cn(
+        error && "text-destructive",
+        "mb-[1.2rem] flex items-center gap-[.4rem]",
+        className
+      )}
       htmlFor={formItemId}
       {...props}
-    />
+    >
+      {children}
+      {required && (
+        <span className="inline-block w-[.4rem] h-[.4rem] rounded-full bg-states-red"></span>
+      )}
+    </Label>
   );
 });
 FormLabel.displayName = "FormLabel";
@@ -125,32 +135,21 @@ const FormControl = React.forwardRef<
 });
 FormControl.displayName = "FormControl";
 
-const FormDescriptionVariants = cva("text-[1.2rem] text-gray-5", {
-  variants: {
-    variant: {
-      default: "",
-      active: "",
-      complete: "",
-      error: "text-states-red",
-    },
-  },
-});
-
-interface FormDescriptionProps
-  extends React.HTMLAttributes<HTMLParagraphElement>,
-    VariantProps<typeof FormDescriptionVariants> {}
-
 const FormDescription = React.forwardRef<
   HTMLParagraphElement,
-  FormDescriptionProps
->(({ className, variant, ...props }, ref) => {
-  const { formDescriptionId } = useFormField();
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => {
+  const { error, formDescriptionId } = useFormField();
 
   return (
     <p
       ref={ref}
       id={formDescriptionId}
-      className={cn(FormDescriptionVariants({ variant, className }))}
+      className={cn(
+        "text-[1.2rem] text-gray-5 mt-[.6rem]",
+        error && "text-states-red",
+        className
+      )}
       {...props}
     />
   );
@@ -172,7 +171,7 @@ const FormMessage = React.forwardRef<
     <p
       ref={ref}
       id={formMessageId}
-      className={cn("text-[0.8rem] font-medium text-destructive", className)}
+      className={cn("text-[1.2rem] font-medium text-states-red", className)}
       {...props}
     >
       {body}

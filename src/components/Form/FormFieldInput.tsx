@@ -9,7 +9,30 @@ import {
 } from "../ui/form";
 import { InputHTMLAttributes } from "react";
 import { Input, InputVariants } from "../ui/input";
-import type { VariantProps } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
+
+const InputWrapVariants = cva(
+  "flex items-center w-max transition-colors border rounded-lg border-input border-gray-2 bg-white focus-within:border-primary-cyan",
+  {
+    variants: {
+      variant: {
+        default: "",
+        active: "border-primary-cyan",
+        complete: "",
+        error: "border-states-red focus-within:border-states-red",
+      },
+      elSize: {
+        default: "pl-[1.6rem]",
+        sm: "pl-[1.2rem]",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      elSize: "default",
+    },
+  }
+);
 
 type FormFieldInputProps<T extends FieldValues, U> = Omit<
   InputHTMLAttributes<HTMLInputElement>,
@@ -21,7 +44,10 @@ type FormFieldInputProps<T extends FieldValues, U> = Omit<
   type?: string;
   placeholder?: string;
   description?: string;
-};
+  icon?: React.ReactNode;
+  button?: React.ReactNode;
+  required?: boolean;
+} & VariantProps<typeof InputVariants>;
 
 export default function FormFieldInput<T extends FieldValues, U>({
   form,
@@ -30,6 +56,10 @@ export default function FormFieldInput<T extends FieldValues, U>({
   type,
   placeholder,
   description,
+  icon,
+  button,
+  elSize,
+  required,
   ...props
 }: FormFieldInputProps<T, U>) {
   return (
@@ -48,22 +78,33 @@ export default function FormFieldInput<T extends FieldValues, U>({
 
           return (
             <FormItem>
-              {label && <FormLabel>{label}</FormLabel>}
+              {label && <FormLabel required={required}>{label}</FormLabel>}
+
               <FormControl>
-                <Input
-                  {...field}
-                  value={field.value ?? ""}
-                  type={type || "text"}
-                  placeholder={placeholder || (label ? label + "..." : "")}
-                  variant={inputVariant}
-                  {...props}
-                />
+                <div
+                  className={cn(
+                    InputWrapVariants({ variant: inputVariant }),
+                    props.disabled && "text-gray-4 bg-gray-0",
+                    !icon && "pl-0"
+                  )}
+                >
+                  {icon}
+                  <Input
+                    {...field}
+                    value={field.value ?? ""}
+                    type={type || "text"}
+                    placeholder={placeholder || (label ? label + "..." : "")}
+                    variant={inputVariant}
+                    className={inputVariant}
+                    elSize={elSize}
+                    disabled={props.disabled}
+                    {...props}
+                  />
+                  {button}
+                </div>
               </FormControl>
-              {description && (
-                <FormDescription variant={inputVariant}>
-                  {description}
-                </FormDescription>
-              )}
+
+              {description && <FormDescription>{description}</FormDescription>}
               <FormMessage />
             </FormItem>
           );

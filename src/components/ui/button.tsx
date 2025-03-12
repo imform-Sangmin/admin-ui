@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-[1rem] whitespace-nowrap rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:bg-gray-2 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-[1rem] whitespace-nowrap rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:text-gray-4 disabled:bg-gray-0 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -22,9 +22,9 @@ const buttonVariants = cva(
       },
       size: {
         default:
-          "h-[5.6rem] rounded-md px-[2rem] py-[1.2rem] text-[1.6rem] [&_svg]:h-[2.4rem]",
-        md: "h-[4.8rem] rounded-md px-[2rem] py-[1.2rem] text-[1.5rem] [&_svg]:h-[2rem]",
-        sm: "h-[4rem] rounded-md px-[1.4rem] py-[0.9rem] text-[1.4rem] [&_svg]:h-[1.6rem]",
+          "h-[5.6rem] rounded-md px-[2rem] py-[1.2rem] text-[1.6rem] [&_svg]:w-[2rem]",
+        md: "h-[4.8rem] rounded-md px-[2rem] py-[1.2rem] text-[1.5rem] [&_svg]:w-[2rem]",
+        sm: "h-[4rem] rounded-md px-[1.4rem] py-[0.9rem] text-[1.4rem] [&_svg]:w-[1.6rem]",
       },
     },
     defaultVariants: {
