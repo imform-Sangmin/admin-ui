@@ -1,13 +1,21 @@
 import { FieldValues, Path, UseFormReturn } from "react-hook-form";
-import { FormControl, FormField } from "../ui/form";
+import {
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "../ui/form";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectVariants,
 } from "../ui/select";
 import { SelectHTMLAttributes } from "react";
+import { VariantProps } from "class-variance-authority";
 
 type FormFieldSelectProps<T extends FieldValues, U> = Omit<
   SelectHTMLAttributes<HTMLSelectElement>,
@@ -15,11 +23,20 @@ type FormFieldSelectProps<T extends FieldValues, U> = Omit<
 > & {
   form: UseFormReturn<T, U, FieldValues | undefined>;
   name: Path<T>;
-};
+  label?: string;
+  placeholder?: string;
+  description?: string;
+  options: { label: string; value: string }[];
+} & VariantProps<typeof SelectVariants>;
 
 export default function FormFieldSelect<T extends FieldValues, U>({
   form,
   name,
+  label,
+  placeholder,
+  description,
+  elSize,
+  options,
   ...props
 }: FormFieldSelectProps<T, U>) {
   return (
@@ -29,18 +46,32 @@ export default function FormFieldSelect<T extends FieldValues, U>({
         name={name}
         render={({ field }) => {
           return (
-            <Select>
-              <FormControl>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a verified email to display" />
-                </SelectTrigger>
-              </FormControl>
-              <SelectContent>
-                <SelectItem value="1">1</SelectItem>
-                <SelectItem value="2">2</SelectItem>
-                <SelectItem value="3">3</SelectItem>
-              </SelectContent>
-            </Select>
+            <FormItem>
+              {label && <FormLabel>{label}</FormLabel>}
+              <Select
+                onValueChange={field.onChange}
+                defaultValue={field.value?.toString()}
+                value={field.value?.toString()}
+                disabled={props.disabled}
+              >
+                <FormControl>
+                  <SelectTrigger elSize={elSize}>
+                    <SelectValue placeholder={placeholder} />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {options.map((option) => (
+                    <SelectItem
+                      key={`${name}-${option.value}`}
+                      value={option.value}
+                    >
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {description && <FormDescription>{description}</FormDescription>}
+            </FormItem>
           );
         }}
       />

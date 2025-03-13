@@ -41,7 +41,7 @@ export const ToggleMenu = ({ menulist }: ToggleMenuProps) => {
             {menulist.title}
           </span>
           <Icon
-            type="down"
+            type="arrowDown"
             className="ml-auto text-white transition-transform group-data-[state=open]/collapsible:rotate-180"
           />
         </SidebarMenuButton>

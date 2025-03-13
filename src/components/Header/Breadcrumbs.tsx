@@ -24,7 +24,7 @@ export const Breadcrumbs = () => {
         </li>
         {pageInfo && (
           <li className="flex gap-[0.4rem] items-center">
-            <Icon type="up" className="text-secondary-8 rotate-90" />
+            <Icon type="arrowRight" className="text-secondary-8" />
             <Link
               href={pageInfo.url || ""}
               className={`${pageInfo.url === paths && "text-secondary-4"}`}
@@ -35,7 +35,7 @@ export const Breadcrumbs = () => {
         )}
         {subPage && (
           <li className="flex gap-[0.4rem] items-center">
-            <Icon type="up" className="text-secondary-8 rotate-90" />
+            <Icon type="arrowRight" className="text-secondary-8" />
             <Link
               href={subPage.url}
               className={`${subPage.url === paths && "text-secondary-4"}`}

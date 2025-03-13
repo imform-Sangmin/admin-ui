@@ -18,13 +18,14 @@ const buttonVariants = cva(
         outline:
           "border border-input border-[1px] border-secondary-3 bg-transparent text-secondary-6 hover:text-secondary-8 disabled:text-gray-4 disabled:border-gray-2 disabled:bg-transparent",
         ghost:
-          "bg-transparent text-secondary-6 hover:text-secondary-8 disabled:text-gray-4",
+          "relative bg-transparent text-secondary-8 hover:after:content-[''] hover:after:inline-block hover:after:absolute hover:after:inset-x-0 hover:after:bottom-[-.2rem] hover:after:w-full hover:after:bg-secondary-8 hover:after:h-[0.2rem] disabled:text-gray-4",
       },
       size: {
         default:
-          "h-[5.6rem] rounded-md px-[2rem] py-[1.2rem] text-[1.6rem] [&_svg]:w-[2rem]",
-        md: "h-[4.8rem] rounded-md px-[2rem] py-[1.2rem] text-[1.5rem] [&_svg]:w-[2rem]",
-        sm: "h-[4rem] rounded-md px-[1.4rem] py-[0.9rem] text-[1.4rem] [&_svg]:w-[1.6rem]",
+          "rounded-radius px-[2rem] py-[1.5rem] text-[1.6rem] [&_svg]:w-[2.4rem]",
+        md: "rounded-radius-sm px-[2rem] py-[1.2rem] text-[1.5rem] [&_svg]:w-[2rem]",
+        sm: "rounded-radius-sm px-[1.4rem] py-[0.9rem] text-[1.4rem] [&_svg]:w-[1.6rem]",
+        xs: "rounded-radius-sm px-[1.2rem] py-[0.6rem] text-[1.3rem] [&_svg]:w-[1.6rem]",
       },
     },
     defaultVariants: {
@@ -45,7 +46,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = asChild ? Slot : "button";
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(
+          buttonVariants({ variant, size, className }),
+          variant === "ghost" && "rounded-none py-0 px-0"
+        )}
         ref={ref}
         {...props}
       />

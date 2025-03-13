@@ -19,7 +19,7 @@ export const MenuList: { [key: string]: MenuType } = {
   },
   app: {
     title: "앱 관리",
-    icon: <Icon type="app" />,
+    icon: <Icon type="phone" />,
     sub: [
       {
         title: "스플래시 화면 관리",
