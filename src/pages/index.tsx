@@ -6,6 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
 import FormFieldSelect from "@/components/Form/FormFieldSelect";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const FormSchema = z.object({
   username1: z.string().min(2, {
@@ -162,6 +163,13 @@ export default function Home() {
           </div>
         </form>
       </Form>
+      <h2>Checkbox</h2>
+      <div className="flex flex-wrap gap-[1.2rem]">
+        <Checkbox />
+        <Checkbox disabled />
+        <Checkbox size="xs" />
+        <Checkbox size="xs" disabled />
+      </div>
     </div>
   );
 }

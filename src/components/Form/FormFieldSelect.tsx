@@ -39,6 +39,8 @@ export default function FormFieldSelect<T extends FieldValues, U>({
   options,
   ...props
 }: FormFieldSelectProps<T, U>) {
+  console.log(form);
+
   return (
     <>
       <FormField

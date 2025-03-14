@@ -95,7 +95,7 @@ const iconVariants = cva("", {
     },
     size: {
       default: "w-[2rem]",
-      sm: "",
+      sm: "w-[1.8rem]",
       lg: "w-[2.4rem]",
     },
   },

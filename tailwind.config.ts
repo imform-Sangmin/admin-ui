@@ -23,7 +23,7 @@ export default {
         white: "#fff",
         black: "#000",
         background: {
-          DEFAULT: "#f2f4f5",
+          DEFAULT: "#fff",
           lnb: "#1c2025",
           alert: "#1c202550",
           "page-dark": "#E8EBEE",
