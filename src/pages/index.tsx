@@ -7,6 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
 import FormFieldSelect from "@/components/Form/FormFieldSelect";
 import { Checkbox } from "@/components/ui/checkbox";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Switch } from "@/components/ui/switch";
 
 const FormSchema = z.object({
   username1: z.string().min(2, {
@@ -25,6 +27,9 @@ const FormSchema = z.object({
     required_error: "Please select an email to display.",
   }),
   select2: z.string({
+    required_error: "Please select an email to display.",
+  }),
+  select3: z.string({
     required_error: "Please select an email to display.",
   }),
 });
@@ -161,8 +166,23 @@ export default function Home() {
               ]}
             />
           </div>
+          <h2>MultiSelect</h2>
+          {/* <FormFieldMultiSelect
+            form={form}
+            name="select3"
+            label="라벨"
+            placeholder="선택해주세요"
+            description="도움말영역-오류"
+            options={[
+              { label: "1", value: "1" },
+              { label: "2", value: "2" },
+              { label: "3", value: "3" },
+              { label: "4", value: "4" },
+            ]}
+          /> */}
         </form>
       </Form>
+
       <h2>Checkbox</h2>
       <div className="flex flex-wrap gap-[1.2rem]">
         <Checkbox />
@@ -170,6 +190,17 @@ export default function Home() {
         <Checkbox size="xs" />
         <Checkbox size="xs" disabled />
       </div>
+      <h2>Radio</h2>
+      <RadioGroup>
+        <RadioGroupItem value="1" />
+        <RadioGroupItem value="2" />
+        <RadioGroupItem value="3" />
+      </RadioGroup>
+      <h2>Switch</h2>
+      <Switch />
+      <Switch variant="error" />
+      <Switch disabled />
+      <Switch size="sm" />
     </div>
   );
 }

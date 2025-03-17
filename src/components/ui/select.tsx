@@ -16,7 +16,7 @@ export const SelectVariants = cva(
   {
     variants: {
       variant: {
-        default: "",
+        default: "data-[state=open]:[&>svg]:rotate-x-180",
       },
       elSize: {
         default: "px-[1.2rem] py-[0.9rem]",
