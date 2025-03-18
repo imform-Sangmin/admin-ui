@@ -1,6 +1,6 @@
 import { FieldValues, Path, UseFormReturn } from "react-hook-form";
 import { FormDescription, FormField, FormItem, FormLabel } from "../ui/form";
-import { SelectHTMLAttributes } from "react";
+import { SelectHTMLAttributes, useState } from "react";
 import {
   MultiSelector,
   MultiSelectorContent,
@@ -9,6 +9,7 @@ import {
   MultiSelectorList,
   MultiSelectorTrigger,
 } from "../ui/multi-select";
+import { Icon } from "../Icons";
 
 type FormFieldSelectProps<T extends FieldValues, U> = Omit<
   SelectHTMLAttributes<HTMLSelectElement>,
@@ -21,8 +22,7 @@ type FormFieldSelectProps<T extends FieldValues, U> = Omit<
   description?: string;
   options: { label: string; value: string }[];
 };
-
-export default function FormFieldSelect<T extends FieldValues, U>({
+const FormFieldMultiSelect = <T extends FieldValues, U>({
   form,
   name,
   label,
@@ -30,15 +30,13 @@ export default function FormFieldSelect<T extends FieldValues, U>({
   description,
   options,
   ...props
-}: FormFieldSelectProps<T, U>) {
+}: FormFieldSelectProps<T, U>) => {
   return (
     <>
       <FormField
         control={form.control}
         name={name}
         render={({ field }) => {
-          console.log(field);
-
           return (
             <FormItem>
               {label && <FormLabel>{label}</FormLabel>}
@@ -48,12 +46,13 @@ export default function FormFieldSelect<T extends FieldValues, U>({
               >
                 <MultiSelectorTrigger>
                   <MultiSelectorInput placeholder={placeholder} />
+                  <Icon type="arrowFillDown" className="text-black" />
                 </MultiSelectorTrigger>
                 <MultiSelectorContent>
                   <MultiSelectorList>
-                    {options.map((option) => (
+                    {options.map((option, i) => (
                       <MultiSelectorItem
-                        key={option.value}
+                        key={`${option.value}-${i}`}
                         value={option.value}
                       >
                         {option.label}
@@ -69,4 +68,6 @@ export default function FormFieldSelect<T extends FieldValues, U>({
       />
     </>
   );
-}
+};
+
+export { FormFieldMultiSelect };

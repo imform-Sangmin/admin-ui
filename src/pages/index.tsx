@@ -9,6 +9,7 @@ import FormFieldSelect from "@/components/Form/FormFieldSelect";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
+import { FormFieldMultiSelect } from "@/components/Form/FormFieldMultiSelect";
 
 const FormSchema = z.object({
   username1: z.string().min(2, {
@@ -29,15 +30,26 @@ const FormSchema = z.object({
   select2: z.string({
     required_error: "Please select an email to display.",
   }),
-  select3: z.string({
-    required_error: "Please select an email to display.",
-  }),
+  select3: z.array(
+    z.string({
+      required_error: "Please select an email to display.",
+    })
+  ),
 });
 
 export default function Home() {
   const form = useForm({
     resolver: zodResolver(FormSchema),
     mode: "onChange",
+    defaultValues: {
+      username1: "",
+      username2: "",
+      username3: "",
+      username4: "",
+      select: "",
+      select2: "",
+      select3: [],
+    },
   });
 
   return (
@@ -167,7 +179,7 @@ export default function Home() {
             />
           </div>
           <h2>MultiSelect</h2>
-          {/* <FormFieldMultiSelect
+          <FormFieldMultiSelect
             form={form}
             name="select3"
             label="라벨"
@@ -179,7 +191,7 @@ export default function Home() {
               { label: "3", value: "3" },
               { label: "4", value: "4" },
             ]}
-          /> */}
+          />
         </form>
       </Form>
 

@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
 import { Command as CommandPrimitive } from "cmdk";
-import { X as RemoveIcon, Check } from "lucide-react";
+import { X as RemoveIcon } from "lucide-react";
 import React, {
   KeyboardEvent,
   createContext,
@@ -16,6 +16,8 @@ import React, {
   useContext,
   useState,
 } from "react";
+import { Icon } from "../Icons";
+import { cva, VariantProps } from "class-variance-authority";
 
 interface MultiSelectorProps
   extends React.ComponentPropsWithoutRef<typeof CommandPrimitive> {
@@ -228,10 +230,7 @@ const MultiSelectorTrigger = forwardRef<
     <div
       ref={ref}
       className={cn(
-        "flex flex-wrap gap-1 p-1 py-2 ring-1 ring-muted rounded-lg bg-background",
-        {
-          "ring-1 focus-within:ring-ring": activeIndex === -1,
-        },
+        "flex items-center px-[1.2rem] w-max min-w-[32rem] py-[.4rem] gap-[.4rem] rounded-lg border border-input bg-white text-base outline-none transition-colors border-gray-2 [&:disabled]:cursor-not-allowed [&:disabled]:bg-gray-0 [&:disabled_svg]:text-gray-4 [&>span]:line-clamp-1",
         className
       )}
       {...props}
@@ -240,12 +239,12 @@ const MultiSelectorTrigger = forwardRef<
         <Badge
           key={item}
           className={cn(
-            "px-1 rounded-xl flex items-center gap-1",
+            "px-[1.2rem] py-[.6rem] rounded-xl flex items-center gap-1 bg-secondary-8 text-white",
             activeIndex === index && "ring-2 ring-muted-foreground "
           )}
           variant={"secondary"}
         >
-          <span className="text-xs">{item}</span>
+          <span className="text-sm">{item}</span>
           <button
             aria-label={`Remove ${item} option`}
             aria-roledescription="button to remove option"
@@ -291,7 +290,7 @@ const MultiSelectorInput = forwardRef<
       onFocus={() => setOpen(true)}
       onClick={() => setActiveIndex(-1)}
       className={cn(
-        "ml-2 bg-transparent outline-none placeholder:text-muted-foreground flex-1",
+        "ml-2 py-[.6rem] text-md outline-none placeholder:text-muted-foreground flex-1",
         className,
         activeIndex !== -1 && "caret-transparent"
       )}
@@ -307,25 +306,37 @@ const MultiSelectorContent = forwardRef<
 >(({ children }, ref) => {
   const { open } = useMultiSelect();
   return (
-    <div ref={ref} className="relative">
+    <div ref={ref} className="relative w-max min-w-[32rem]">
       {open && children}
     </div>
   );
 });
-
 MultiSelectorContent.displayName = "MultiSelectorContent";
+
+const CommandListVariants = cva(
+  "absolute z-10 top-0 w-full max-h-[24rem] min-w-[8rem] flex flex-col overflow-y-auto overflow-x-hidden rounded-md bg-white border border-secondary-2 shadow-md scrollbar-thin scrollbar-track-transparent transition-colors scrollbar-thumb-muted-foreground dark:scrollbar-thumb-muted scrollbar-thumb-rounded-lg",
+  {
+    variants: {
+      variant: {
+        list: "",
+        chip: "flex flex-wrap",
+      },
+    },
+    defaultVariants: {
+      variant: "list",
+    },
+  }
+);
 
 const MultiSelectorList = forwardRef<
   React.ElementRef<typeof CommandPrimitive.List>,
-  React.ComponentPropsWithoutRef<typeof CommandPrimitive.List>
->(({ className, children }, ref) => {
+  React.ComponentPropsWithoutRef<typeof CommandPrimitive.List> &
+    VariantProps<typeof CommandListVariants>
+>(({ className, variant, children }, ref) => {
   return (
     <CommandList
       ref={ref}
-      className={cn(
-        "p-2 flex flex-col gap-2 rounded-md scrollbar-thin scrollbar-track-transparent transition-colors scrollbar-thumb-muted-foreground dark:scrollbar-thumb-muted scrollbar-thumb-rounded-lg w-full absolute bg-background shadow-md z-10 border border-muted top-0",
-        className
-      )}
+      className={cn(CommandListVariants({ variant, className }))}
     >
       {children}
       <CommandEmpty>
@@ -334,7 +345,6 @@ const MultiSelectorList = forwardRef<
     </CommandList>
   );
 });
-
 MultiSelectorList.displayName = "MultiSelectorList";
 
 const MultiSelectorItem = forwardRef<
@@ -360,15 +370,15 @@ const MultiSelectorItem = forwardRef<
         setInputValue("");
       }}
       className={cn(
-        "rounded-md cursor-pointer px-2 py-1 transition-colors flex justify-between ",
+        "flex justify-between rounded-md cursor-pointer py-[1.3rem] px-[1.6rem] text-sm transition-colors hover:bg-primary-cyan-light",
         className,
-        isIncluded && "opacity-50 cursor-default",
-        props.disabled && "opacity-50 cursor-not-allowed"
+        isIncluded && "cursor-default",
+        props.disabled && "bg-gray-0 cursor-not-allowed"
       )}
       onMouseDown={mousePreventDefault}
     >
       {children}
-      {isIncluded && <Check className="h-4 w-4" />}
+      {isIncluded && <Icon type="check" className="text-primary-cyan" />}
     </CommandItem>
   );
 });
