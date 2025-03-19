@@ -19,6 +19,8 @@ const buttonVariants = cva(
           "border border-input border-[1px] border-secondary-3 bg-transparent text-secondary-6 hover:text-secondary-8 disabled:text-gray-4 disabled:border-gray-2 disabled:bg-transparent",
         ghost:
           "relative bg-transparent text-secondary-8 hover:after:content-[''] hover:after:inline-block hover:after:absolute hover:after:inset-x-0 hover:after:bottom-[-.2rem] hover:after:w-full hover:after:bg-secondary-8 hover:after:h-[0.2rem] disabled:text-gray-4",
+        datePicker:
+          "border border-input border-[1px] border-secondary-3 bg-white min-w-[32.3rem] box-border px-[1.1rem] py-[1.6rem] justify-between text-gray-9",
       },
       size: {
         default:

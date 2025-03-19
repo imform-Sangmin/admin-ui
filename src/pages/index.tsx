@@ -1,15 +1,18 @@
-import { Button } from "@/components/ui/button";
-import { Icon } from "@/components/Icons";
-import FormFieldInput from "@/components/Form/FormFieldInput";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import { Button } from "@/components/ui/button";
+import { Icon } from "@/components/Icons";
+import FormFieldInput from "@/components/Form/FormFieldInput";
 import { Form } from "@/components/ui/form";
 import FormFieldSelect from "@/components/Form/FormFieldSelect";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
 import { FormFieldMultiSelect } from "@/components/Form/FormFieldMultiSelect";
+import DatePicker from "@/components/DatePicker/DatePicker";
+import Counter from "@/components/Counter";
 
 const FormSchema = z.object({
   username1: z.string().min(2, {
@@ -37,17 +40,13 @@ const FormSchema = z.object({
   ),
 });
 
+type FormSchemaType = z.infer<typeof FormSchema>;
+
 export default function Home() {
-  const form = useForm({
+  const form = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
     mode: "onChange",
     defaultValues: {
-      username1: "",
-      username2: "",
-      username3: "",
-      username4: "",
-      select: "",
-      select2: "",
       select3: [],
     },
   });
@@ -213,6 +212,11 @@ export default function Home() {
       <Switch variant="error" />
       <Switch disabled />
       <Switch size="sm" />
+      <h2>Calendar</h2>
+      <DatePicker mode="single" />
+      <DatePicker mode="range" />
+      <h2>Stepper</h2>
+      <Counter />
     </div>
   );
 }

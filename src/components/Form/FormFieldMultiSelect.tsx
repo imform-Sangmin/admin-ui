@@ -1,6 +1,6 @@
 import { FieldValues, Path, UseFormReturn } from "react-hook-form";
 import { FormDescription, FormField, FormItem, FormLabel } from "../ui/form";
-import { SelectHTMLAttributes, useState } from "react";
+import { SelectHTMLAttributes } from "react";
 import {
   MultiSelector,
   MultiSelectorContent,
@@ -29,8 +29,8 @@ const FormFieldMultiSelect = <T extends FieldValues, U>({
   placeholder,
   description,
   options,
-  ...props
-}: FormFieldSelectProps<T, U>) => {
+}: // ...props
+FormFieldSelectProps<T, U>) => {
   return (
     <>
       <FormField
