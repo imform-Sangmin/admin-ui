@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
 import { Command as CommandPrimitive } from "cmdk";
-import { X as RemoveIcon } from "lucide-react";
 import React, {
   KeyboardEvent,
   createContext,
@@ -18,16 +17,19 @@ import React, {
 } from "react";
 import { Icon } from "../Icons";
 import { cva, VariantProps } from "class-variance-authority";
+import Chip from "../Chip";
 
 interface MultiSelectorProps
   extends React.ComponentPropsWithoutRef<typeof CommandPrimitive> {
   values: string[];
   onValuesChange: (value: string[]) => void;
   loop?: boolean;
+  options: { label: string; value: string }[];
 }
 
 interface MultiSelectContextProps {
   value: string[];
+  options: { label: string; value: string }[];
   onValueChange: (value: any) => void;
   open: boolean;
   setOpen: (value: boolean) => void;
@@ -62,6 +64,7 @@ const MultiSelector = ({
   className,
   children,
   dir,
+  options,
   ...props
 }: MultiSelectorProps) => {
   const [inputValue, setInputValue] = useState("");
@@ -188,6 +191,7 @@ const MultiSelector = ({
   return (
     <MultiSelectContext.Provider
       value={{
+        options,
         value,
         onValueChange: onValueChangeHandler,
         open,
@@ -219,7 +223,7 @@ const MultiSelectorTrigger = forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, children, ...props }, ref) => {
-  const { value, onValueChange, activeIndex } = useMultiSelect();
+  const { value, onValueChange, activeIndex, options } = useMultiSelect();
 
   const mousePreventDefault = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -236,26 +240,26 @@ const MultiSelectorTrigger = forwardRef<
       {...props}
     >
       {value.map((item, index) => (
-        <Badge
+        <button
           key={item}
-          className={cn(
-            "px-[1.2rem] py-[.6rem] rounded-xl flex items-center gap-1 bg-secondary-8 text-white",
-            activeIndex === index && "ring-2 ring-muted-foreground "
-          )}
-          variant={"secondary"}
+          aria-label={`Remove ${item} option`}
+          aria-roledescription="button to remove option"
+          type="button"
+          onMouseDown={mousePreventDefault}
+          onClick={() => onValueChange(item)}
         >
-          <span className="text-sm">{item}</span>
-          <button
-            aria-label={`Remove ${item} option`}
-            aria-roledescription="button to remove option"
-            type="button"
-            onMouseDown={mousePreventDefault}
-            onClick={() => onValueChange(item)}
+          <Badge
+            className={cn(
+              "flex items-center px-[1.2rem] py-[.6rem] rounded-xl bg-secondary-8 text-white",
+              activeIndex === index && "ring-2 ring-muted-foreground "
+            )}
+            variant={"secondary"}
           >
-            <span className="sr-only">Remove {item} option</span>
-            <RemoveIcon className="h-4 w-4 hover:stroke-destructive" />
-          </button>
-        </Badge>
+            <span className="text-sm">
+              {options.find((option) => option.value === item)?.label}
+            </span>
+          </Badge>
+        </button>
       ))}
       {children}
     </div>
@@ -318,12 +322,12 @@ const CommandListVariants = cva(
   {
     variants: {
       variant: {
-        list: "",
-        chip: "flex flex-wrap",
+        default: "",
+        chip: "[&_div]:flex [&_div]:flex-wrap",
       },
     },
     defaultVariants: {
-      variant: "list",
+      variant: "default",
     },
   }
 );
@@ -347,12 +351,27 @@ const MultiSelectorList = forwardRef<
 });
 MultiSelectorList.displayName = "MultiSelectorList";
 
+const MultiSelectorItemVariants = cva(
+  "flex justify-between rounded-md cursor-pointer py-[1.3rem] px-[1.6rem] text-sm transition-colors hover:bg-primary-cyan-light [&_svg]:size-[2.4rem]",
+  {
+    variants: {
+      variant: {
+        default: "",
+        chip: "[&_div]:flex [&_div]:flex-wrap",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
 const MultiSelectorItem = forwardRef<
   React.ElementRef<typeof CommandPrimitive.Item>,
   { value: string } & React.ComponentPropsWithoutRef<
     typeof CommandPrimitive.Item
-  >
->(({ className, value, children, ...props }, ref) => {
+  > &
+    VariantProps<typeof MultiSelectorItemVariants>
+>(({ className, value, children, variant, ...props }, ref) => {
   const { value: Options, onValueChange, setInputValue } = useMultiSelect();
 
   const mousePreventDefault = useCallback((e: React.MouseEvent) => {
@@ -362,24 +381,41 @@ const MultiSelectorItem = forwardRef<
 
   const isIncluded = Options.includes(value);
   return (
-    <CommandItem
-      ref={ref}
-      {...props}
-      onSelect={() => {
-        onValueChange(value);
-        setInputValue("");
-      }}
-      className={cn(
-        "flex justify-between rounded-md cursor-pointer py-[1.3rem] px-[1.6rem] text-sm transition-colors hover:bg-primary-cyan-light",
-        className,
-        isIncluded && "cursor-default",
-        props.disabled && "bg-gray-0 cursor-not-allowed"
+    <>
+      {variant && variant === "chip" ? (
+        <CommandItem
+          ref={ref}
+          {...props}
+          onSelect={() => {
+            onValueChange(value);
+            setInputValue("");
+          }}
+          onMouseDown={mousePreventDefault}
+        >
+          <Chip variant="option" on={isIncluded}>
+            {children}
+          </Chip>
+        </CommandItem>
+      ) : (
+        <CommandItem
+          ref={ref}
+          {...props}
+          onSelect={() => {
+            onValueChange(value);
+            setInputValue("");
+          }}
+          className={cn(
+            MultiSelectorItemVariants({ className }),
+            isIncluded && "cursor-default",
+            props.disabled && "bg-gray-0 cursor-not-allowed"
+          )}
+          onMouseDown={mousePreventDefault}
+        >
+          {children}
+          {isIncluded && <Icon type="check" className="text-primary-cyan" />}
+        </CommandItem>
       )}
-      onMouseDown={mousePreventDefault}
-    >
-      {children}
-      {isIncluded && <Icon type="check" className="text-primary-cyan" />}
-    </CommandItem>
+    </>
   );
 });
 

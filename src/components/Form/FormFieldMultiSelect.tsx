@@ -21,6 +21,7 @@ type FormFieldSelectProps<T extends FieldValues, U> = Omit<
   placeholder?: string;
   description?: string;
   options: { label: string; value: string }[];
+  styleType?: "default" | "chip";
 };
 const FormFieldMultiSelect = <T extends FieldValues, U>({
   form,
@@ -29,6 +30,7 @@ const FormFieldMultiSelect = <T extends FieldValues, U>({
   placeholder,
   description,
   options,
+  styleType,
 }: // ...props
 FormFieldSelectProps<T, U>) => {
   return (
@@ -43,17 +45,19 @@ FormFieldSelectProps<T, U>) => {
               <MultiSelector
                 values={field.value}
                 onValuesChange={field.onChange}
+                options={options}
               >
                 <MultiSelectorTrigger>
                   <MultiSelectorInput placeholder={placeholder} />
                   <Icon type="arrowFillDown" className="text-black" />
                 </MultiSelectorTrigger>
                 <MultiSelectorContent>
-                  <MultiSelectorList>
+                  <MultiSelectorList variant={styleType ?? "default"}>
                     {options.map((option, i) => (
                       <MultiSelectorItem
                         key={`${option.value}-${i}`}
                         value={option.value}
+                        variant={styleType ?? "default"}
                       >
                         {option.label}
                       </MultiSelectorItem>

@@ -1,47 +1,79 @@
-import { cn } from "@/lib/utils";
+import * as React from "react";
+
+import {
+  ControllerRenderProps,
+  FieldError,
+  FieldValues,
+  Path,
+} from "react-hook-form";
 import { Icon } from "./Icons";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { useState } from "react";
+import { cn } from "@/lib/utils";
 
-const Counter = () => {
-  const [count, setCount] = useState(0);
-
-  const handleCount = (type: "plus" | "minus") => {
-    if (type === "plus") {
-      setCount(count + 1);
-    } else {
-      setCount(count - 1);
-    }
-  };
-
-  return (
-    <div className="flex items-center gap-[.4rem] w-max">
-      <Button
-        variant={"outline"}
-        size={"xs"}
-        className="p-[.7rem] rounded-full"
-        onClick={() => handleCount("minus")}
-      >
-        <Icon type="minus" />
-      </Button>
-      <Input
-        type="number"
-        className={cn(
-          "text-center p-0 w-[3.2rem] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-        )}
-        value={count}
-      />
-      <Button
-        variant={"outline"}
-        size={"xs"}
-        className="p-[.7rem] rounded-full"
-        onClick={() => handleCount("plus")}
-      >
-        <Icon type="plus" />
-      </Button>
-    </div>
-  );
+type CounterProps<T extends FieldValues> = ControllerRenderProps<
+  T,
+  (string | undefined) & Path<T>
+> & {
+  error?: FieldError | undefined;
+  min?: number;
+  max?: number;
 };
+
+const Counter = React.forwardRef<HTMLInputElement, CounterProps<FieldValues>>(
+  ({ value, onChange, error, disabled, min, max, ...props }, ref) => {
+    return (
+      <div className="flex items-center gap-[.4rem] w-max">
+        <Button
+          variant={"outline"}
+          type="button"
+          size={"xs"}
+          className="p-[.7rem] rounded-full disabled:text-gray-4 disabled:bg-gray-0"
+          disabled={disabled}
+          onClick={() => {
+            if (min !== undefined && value <= min) return;
+            onChange(value - 1);
+          }}
+        >
+          <Icon type="minus" />
+        </Button>
+        <Input
+          type="number"
+          className={cn(
+            "text-center p-0 w-[3.2rem] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none",
+            error && "border-b border-states-red"
+          )}
+          disabled={disabled}
+          value={value ?? 0}
+          onChange={(e) => {
+            const newValue = e.target.value;
+            if (min !== undefined && parseInt(newValue) <= min)
+              return onChange(min);
+            if (max !== undefined && parseInt(newValue) >= max)
+              return onChange(max);
+            onChange(newValue);
+          }}
+          ref={ref}
+          {...props}
+        />
+        <Button
+          variant={"outline"}
+          type="button"
+          size={"xs"}
+          className="p-[.7rem] rounded-full disabled:text-gray-4 disabled:bg-gray-0"
+          disabled={disabled}
+          onClick={() => {
+            if (max !== undefined && value >= max) return;
+            onChange(value + 1);
+          }}
+        >
+          <Icon type="plus" />
+        </Button>
+      </div>
+    );
+  }
+);
+
+Counter.displayName = "Counter";
 
 export default Counter;

@@ -63,7 +63,7 @@ html,
 body {
   height: 100vh;
   color: var(--foreground);
-  background: var(--background);
+  background: #fff;
   font-family: "Pretendard", sans-serif;
   font-size: 10px;
 }
