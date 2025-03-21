@@ -15,7 +15,6 @@ export function Toaster() {
   return (
     <ToastProvider>
       {toasts.map(function ({ id, title, description, action, ...props }) {
-        console.log(props.variant);
         const iconType = () => {
           switch (props.variant) {
             case "primary":

@@ -7,6 +7,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "../ui/sidebar";
 
 import Logo from "@/assets/images/logo.svg";
@@ -17,14 +18,16 @@ import { usePathname } from "next/navigation";
 
 export const CustomSidebar = () => {
   const paths = usePathname();
-
+  const sidebarState = useSidebar();
   return (
-    <Sidebar>
-      <SidebarHeader className="pt-[6rem] pb-[5.2rem]">
-        <Link href="/">
-          <Logo className="h-[1.9rem] m-auto" />
-        </Link>
-      </SidebarHeader>
+    <Sidebar collapsible="icon" variant="inset">
+      {sidebarState?.open && (
+        <SidebarHeader className="pt-[6rem] pb-[5.2rem]">
+          <Link href="/">
+            <Logo className="h-[1.9rem] m-auto" />
+          </Link>
+        </SidebarHeader>
+      )}
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
@@ -37,7 +40,7 @@ export const CustomSidebar = () => {
                     <SidebarMenuButton asChild isActive={menu.url === paths}>
                       <Link href={menu.url || "/"}>
                         {menu.icon}
-                        <span>{menu.title}</span>
+                        {sidebarState?.open && <span>{menu.title}</span>}
                       </Link>
                     </SidebarMenuButton>
                   )}

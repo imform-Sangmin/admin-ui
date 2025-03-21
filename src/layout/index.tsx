@@ -12,8 +12,8 @@ export const Layout = ({ children }: Props) => {
     <>
       <SidebarProvider>
         <CustomSidebar />
-        <div className="flex-1">
-          <Header />
+        <Header />
+        <div id="contents">
           <main>{children}</main>
         </div>
         <Toaster />

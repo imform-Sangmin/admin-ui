@@ -11,6 +11,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
+  useSidebar,
 } from "../ui/sidebar";
 import { MenuType } from "@/consts/MenuList";
 import { usePathname } from "next/navigation";
@@ -21,6 +22,7 @@ interface ToggleMenuProps {
 
 export const ToggleMenu = ({ menulist }: ToggleMenuProps) => {
   const paths = usePathname();
+  const sidebarState = useSidebar();
   const [isOpen, setIsOpen] = useState(
     menulist.sub?.map((list) => list.url).includes(paths) || false
   );
@@ -38,12 +40,14 @@ export const ToggleMenu = ({ menulist }: ToggleMenuProps) => {
         <SidebarMenuButton>
           <span className="flex gap-[0.8rem] items-center text-[1.6rem]">
             {menulist.icon}
-            {menulist.title}
+            {sidebarState?.open && menulist.title}
           </span>
-          <Icon
-            type="arrowDown"
-            className="ml-auto text-white transition-transform group-data-[state=open]/collapsible:rotate-180"
-          />
+          {sidebarState?.open && (
+            <Icon
+              type="arrowDown"
+              className="ml-auto text-white transition-transform group-data-[state=open]/collapsible:rotate-180"
+            />
+          )}
         </SidebarMenuButton>
       </CollapsibleTrigger>
       <CollapsibleContent

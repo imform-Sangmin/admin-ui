@@ -342,7 +342,6 @@ export default function Home() {
         onClick={() => {
           toast({
             title: "내용을 입력하세요",
-            description: "내용 설명",
             variant: "primary",
           });
         }}
@@ -353,7 +352,6 @@ export default function Home() {
         onClick={() => {
           toast({
             title: "내용을 입력하세요",
-            description: "내용 설명",
             variant: "success",
           });
         }}
@@ -364,7 +362,6 @@ export default function Home() {
         onClick={() => {
           toast({
             title: "내용을 입력하세요",
-            description: "내용 설명",
             variant: "info",
           });
         }}
@@ -375,7 +372,6 @@ export default function Home() {
         onClick={() => {
           toast({
             title: "내용을 입력하세요",
-            description: "내용 설명",
             variant: "warning",
           });
         }}
@@ -386,7 +382,6 @@ export default function Home() {
         onClick={() => {
           toast({
             title: "내용을 입력하세요",
-            description: "내용 설명",
             variant: "error",
           });
         }}
