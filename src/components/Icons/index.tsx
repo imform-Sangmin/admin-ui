@@ -43,6 +43,12 @@ import CloseCircle from "@/assets/icons/ic_close-circle.svg";
 import UpDown from "@/assets/icons/ic_up-down.svg";
 import Menu from "@/assets/icons/ic_menu.svg";
 
+import ToastError from "@/assets/icons/ic_toast-error.svg";
+import ToastSuccess from "@/assets/icons/ic_toast-success.svg";
+import ToastWarning from "@/assets/icons/ic_toast-warning.svg";
+import ToastInfo from "@/assets/icons/ic_toast-info.svg";
+import React from "react";
+
 const ICON_MAP = {
   settings: Settings,
   eye: Eye,
@@ -86,6 +92,10 @@ const ICON_MAP = {
   closeCircle: CloseCircle,
   upDown: UpDown,
   menu: Menu,
+  toastError: ToastError,
+  toastSuccess: ToastSuccess,
+  toastWarning: ToastWarning,
+  toastInfo: ToastInfo,
 };
 
 const iconVariants = cva("", {
@@ -105,11 +115,10 @@ const iconVariants = cva("", {
   },
 });
 
-interface IconPropsType
-  extends React.SVGAttributes<HTMLOrSVGElement>,
-    VariantProps<typeof iconVariants> {
-  type: keyof typeof ICON_MAP;
-}
+type IconProps = React.SVGAttributes<HTMLOrSVGElement> &
+  VariantProps<typeof iconVariants> & {
+    type: keyof typeof ICON_MAP;
+  };
 
 export const Icon = ({
   type,
@@ -117,7 +126,7 @@ export const Icon = ({
   variant,
   size,
   ...props
-}: IconPropsType) => {
+}: IconProps) => {
   const IconComponent = ICON_MAP[type];
 
   return (

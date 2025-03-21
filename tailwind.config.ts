@@ -8,6 +8,13 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontWeight: {
+      regular: "400",
+      medium: "500",
+      semibold: "600",
+      bold: "700",
+      extrabold: "800",
+    },
     fontSize: {
       sm: ["1.3rem", "1.65"],
       md: ["1.4rem", "1.65"],

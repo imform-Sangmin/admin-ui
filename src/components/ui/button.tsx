@@ -23,16 +23,15 @@ const buttonVariants = cva(
           "border border-input border-[1px] border-secondary-3 bg-white min-w-[32.3rem] box-border px-[1.1rem] py-[1.6rem] justify-between text-gray-9",
       },
       size: {
-        default:
-          "rounded-radius px-[2rem] py-[1.5rem] text-[1.6rem] [&_svg]:w-[2.4rem]",
-        md: "rounded-radius-sm px-[2rem] py-[1.2rem] text-[1.5rem] [&_svg]:w-[2rem]",
-        sm: "rounded-radius-sm px-[1.4rem] py-[0.9rem] text-[1.4rem] [&_svg]:w-[1.6rem]",
-        xs: "rounded-radius-sm px-[1.2rem] py-[0.6rem] text-[1.3rem] [&_svg]:w-[1.6rem]",
+        xl: "rounded-radius px-[2rem] py-[1.5rem] text-[1.6rem] [&_svg]:w-[2.4rem]",
+        lg: "rounded-radius-sm px-[2rem] py-[1.2rem] text-[1.5rem] [&_svg]:w-[2rem]",
+        md: "rounded-radius-sm px-[1.4rem] py-[0.9rem] text-[1.4rem] [&_svg]:w-[1.6rem]",
+        sm: "rounded-radius-sm px-[1.2rem] py-[0.6rem] text-[1.3rem] [&_svg]:w-[1.6rem]",
       },
     },
     defaultVariants: {
       variant: "default",
-      size: "default",
+      size: "md",
     },
   }
 );

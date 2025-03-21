@@ -8,13 +8,15 @@ import FormFieldInput from "@/components/Form/FormFieldInput";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import FormFieldSelect from "@/components/Form/FormFieldSelect";
 import { Checkbox } from "@/components/ui/checkbox";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
 import { FormFieldMultiSelect } from "@/components/Form/FormFieldMultiSelect";
 import DatePicker from "@/components/DatePicker/DatePicker";
 import Counter from "@/components/Counter";
 import PaginationRender from "@/components/PaginationRender";
 import Chip from "@/components/Chip";
+import Radio from "@/components/Radio";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { useToast } from "@/hooks/use-toast";
 const FormSchema = z.object({
   username1: z.string().min(2, {
     message: "2글자 이상 입력해주세요",
@@ -52,6 +54,7 @@ const FormSchema = z.object({
 type FormSchemaType = z.infer<typeof FormSchema>;
 
 export default function Home() {
+  const { toast } = useToast();
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
     mode: "onChange",
@@ -66,16 +69,16 @@ export default function Home() {
     <div className="px-[1.2rem]">
       <h2>Button</h2>
       <div className="flex flex-wrap items-center gap-[1.2rem]">
+        <Button size={"xl"}>
+          버튼 <Icon type="settings" />
+        </Button>
+        <Button size={"lg"}>
+          버튼 <Icon type="settings" />
+        </Button>
         <Button>
           버튼 <Icon type="settings" />
         </Button>
-        <Button size={"md"}>
-          버튼 <Icon type="settings" />
-        </Button>
         <Button size={"sm"}>
-          버튼 <Icon type="settings" />
-        </Button>
-        <Button size={"xs"}>
           버튼 <Icon type="settings" />
         </Button>
         <Button variant={"secondary1"}>
@@ -250,11 +253,33 @@ export default function Home() {
         <Checkbox size="xs" disabled />
       </div>
       <h2>Radio</h2>
-      <RadioGroup>
-        <RadioGroupItem value="1" />
-        <RadioGroupItem value="2" />
-        <RadioGroupItem value="3" />
-      </RadioGroup>
+      <div className="flex flex-wrap gap-[1.2rem]">
+        <Radio
+          options={[
+            { label: "옵션하나", value: "1" },
+            { label: "옵션둘", value: "2" },
+            { label: "옵션셋", value: "3" },
+          ]}
+        />
+        <Radio
+          size="sm"
+          variant="error"
+          options={[
+            { label: "옵션하나", value: "1" },
+            { label: "옵션둘", value: "2" },
+            { label: "옵션셋", value: "3" },
+          ]}
+        />
+        <Radio
+          size="sm"
+          disabled
+          options={[
+            { label: "옵션하나", value: "1" },
+            { label: "옵션둘", value: "2" },
+            { label: "옵션셋", value: "3" },
+          ]}
+        />
+      </div>
       <h2>Switch</h2>
       <Switch />
       <Switch variant="error" />
@@ -278,6 +303,96 @@ export default function Home() {
       <Chip variant="answer" on={true}>
         답변완료
       </Chip>
+
+      <h2>Tabs</h2>
+      <Tabs defaultValue="tab1">
+        <TabsList>
+          <TabsTrigger value="tab1">
+            탭1<span>00</span>
+          </TabsTrigger>
+          <TabsTrigger value="tab2">
+            탭2<span>00</span>
+          </TabsTrigger>
+          <TabsTrigger value="tab3">
+            탭3<span>00</span>
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="tab1">탭1 내용</TabsContent>
+        <TabsContent value="tab2">탭2 내용</TabsContent>
+        <TabsContent value="tab3">탭3 내용</TabsContent>
+      </Tabs>
+      <Tabs defaultValue="tab1">
+        <TabsList className="gap-[2rem]">
+          <TabsTrigger value="tab1" variant={"line"}>
+            탭1<span>00</span>
+          </TabsTrigger>
+          <TabsTrigger value="tab2" variant={"line"}>
+            탭2<span>00</span>
+          </TabsTrigger>
+          <TabsTrigger value="tab3" variant={"line"}>
+            탭3<span>00</span>
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="tab1">탭1 내용</TabsContent>
+        <TabsContent value="tab2">탭2 내용</TabsContent>
+        <TabsContent value="tab3">탭3 내용</TabsContent>
+      </Tabs>
+      <h2>Toast</h2>
+      <Button
+        onClick={() => {
+          toast({
+            title: "내용을 입력하세요",
+            description: "내용 설명",
+            variant: "primary",
+          });
+        }}
+      >
+        Primary
+      </Button>
+      <Button
+        onClick={() => {
+          toast({
+            title: "내용을 입력하세요",
+            description: "내용 설명",
+            variant: "success",
+          });
+        }}
+      >
+        Success
+      </Button>
+      <Button
+        onClick={() => {
+          toast({
+            title: "내용을 입력하세요",
+            description: "내용 설명",
+            variant: "info",
+          });
+        }}
+      >
+        Info
+      </Button>
+      <Button
+        onClick={() => {
+          toast({
+            title: "내용을 입력하세요",
+            description: "내용 설명",
+            variant: "warning",
+          });
+        }}
+      >
+        Wraning
+      </Button>
+      <Button
+        onClick={() => {
+          toast({
+            title: "내용을 입력하세요",
+            description: "내용 설명",
+            variant: "error",
+          });
+        }}
+      >
+        Error
+      </Button>
     </div>
   );
 }

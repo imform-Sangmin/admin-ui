@@ -52,6 +52,11 @@
       #0bc409 -70.18%,
       #06c8bb 110.41%
     );
+  --states-red: theme("colors.states.red");
+  --states-orange: theme("colors.states.orange");
+  --states-yellow: theme("colors.states.yellow");
+  --states-blue: theme("colors.states.blue");
+  --states-green: theme("colors.states.green");
 
   --radius: 0.8rem;
   --radius-sm: 0.6rem;
