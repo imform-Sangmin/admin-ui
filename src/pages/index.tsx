@@ -101,7 +101,7 @@ export default function Home() {
       <Form {...form}>
         <form>
           <h2>Input</h2>
-          <div className="flex flex-wrap  gap-[1.2rem]">
+          <div className="flex flex-wrap gap-[1.2rem]">
             <FormFieldInput
               form={form}
               name="username1"
@@ -118,7 +118,11 @@ export default function Home() {
               label="라벨"
               description="도움말영역-오류"
               button={
-                <Button variant={"ghost"} className="text-gray-9 w-[5.6rem]">
+                <Button
+                  variant={"ghost"}
+                  size={"lg"}
+                  className="text-gray-9 w-[5.6rem] hover:after:content-none"
+                >
                   <Icon type="settings" />
                 </Button>
               }

@@ -44,22 +44,34 @@ export default function FormFieldSelect<T extends FieldValues, U>({
       <FormField
         control={form.control}
         name={name}
-        render={({ field }) => {
+        render={({ field, fieldState: { error } }) => {
           return (
             <FormItem>
               {label && <FormLabel>{label}</FormLabel>}
               <Select
-                onValueChange={field.onChange}
+                onValueChange={(value) => {
+                  if (value === "none") {
+                    field.onChange("");
+                  } else {
+                    field.onChange(value);
+                  }
+                }}
                 defaultValue={field.value?.toString()}
                 value={field.value?.toString()}
                 disabled={props.disabled}
               >
                 <FormControl>
-                  <SelectTrigger elSize={elSize}>
+                  <SelectTrigger
+                    elSize={elSize}
+                    variant={error ? "error" : "default"}
+                  >
                     <SelectValue placeholder={placeholder} />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
+                  <SelectItem value={"none"}>
+                    <span className="text-gray-4">선택</span>
+                  </SelectItem>
                   {options.map((option) => (
                     <SelectItem
                       key={`${name}-${option.value}`}

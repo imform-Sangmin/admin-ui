@@ -82,17 +82,17 @@ const DatePicker = ({ mode }: DatePickerProps) => {
         <div className="flex items-center justify-between flex-wrap gap-[.8rem] pt-[1.6rem] mt-[1.6rem] border-t border-gray-1">
           <Button
             variant={"ghost"}
-            size={"xs"}
+            size={"sm"}
             className={"gap-[.4rem] mr-auto"}
             onClick={handleOnSetToday}
           >
             <Icon type="time" />
             오늘
           </Button>
-          <Button variant={"outline"} size={"xs"} onClick={handleOnCancel}>
+          <Button variant={"outline"} size={"sm"} onClick={handleOnCancel}>
             취소
           </Button>
-          <Button variant={"secondary1"} size={"xs"} onClick={handleOnConfirm}>
+          <Button variant={"secondary1"} size={"sm"} onClick={handleOnConfirm}>
             확인
           </Button>
         </div>

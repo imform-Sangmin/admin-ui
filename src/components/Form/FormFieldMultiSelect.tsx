@@ -9,7 +9,6 @@ import {
   MultiSelectorList,
   MultiSelectorTrigger,
 } from "../ui/multi-select";
-import { Icon } from "../Icons";
 
 type FormFieldSelectProps<T extends FieldValues, U> = Omit<
   SelectHTMLAttributes<HTMLSelectElement>,
@@ -49,7 +48,6 @@ FormFieldSelectProps<T, U>) => {
               >
                 <MultiSelectorTrigger>
                   <MultiSelectorInput placeholder={placeholder} />
-                  <Icon type="arrowFillDown" className="text-black" />
                 </MultiSelectorTrigger>
                 <MultiSelectorContent>
                   <MultiSelectorList variant={styleType ?? "default"}>

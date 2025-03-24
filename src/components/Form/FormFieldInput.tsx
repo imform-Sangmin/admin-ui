@@ -75,7 +75,6 @@ export default function FormFieldInput<T extends FieldValues, U>({
           } else if (isDirty) {
             inputVariant = "complete";
           }
-
           return (
             <FormItem>
               {label && <FormLabel required={required}>{label}</FormLabel>}
@@ -98,6 +97,9 @@ export default function FormFieldInput<T extends FieldValues, U>({
                     className={inputVariant}
                     elSize={elSize}
                     disabled={props.disabled}
+                    handleClear={() => {
+                      field.onChange("");
+                    }}
                     {...props}
                   />
                   {button}

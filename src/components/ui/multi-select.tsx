@@ -223,7 +223,7 @@ const MultiSelectorTrigger = forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, children, ...props }, ref) => {
-  const { value, onValueChange, activeIndex, options } = useMultiSelect();
+  const { value, onValueChange, activeIndex, options, open } = useMultiSelect();
 
   const mousePreventDefault = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -262,6 +262,10 @@ const MultiSelectorTrigger = forwardRef<
         </button>
       ))}
       {children}
+      <Icon
+        type="arrowFillDown"
+        className={cn("text-black", open && "rotate-180 transition-transform")}
+      />
     </div>
   );
 });

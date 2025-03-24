@@ -16,7 +16,9 @@ export const SelectVariants = cva(
   {
     variants: {
       variant: {
-        default: "data-[state=open]:[&>svg]:rotate-x-180",
+        default:
+          "[&_svg]:transition-transform [&[data-state=open]_svg.select-arrow]:rotate-180",
+        error: "border-states-red",
       },
       elSize: {
         default: "px-[1.2rem] py-[0.9rem]",
@@ -43,7 +45,7 @@ const SelectTrigger = React.forwardRef<
   >
     {children}
     <SelectPrimitive.Icon asChild>
-      <Icon type="arrowFillDown" className="text-black" />
+      <Icon type="arrowFillDown" className="select-arrow text-black" />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ));
