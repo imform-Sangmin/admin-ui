@@ -1,3 +1,5 @@
+"use client";
+
 import React, { forwardRef, useImperativeHandle, useState } from "react";
 import {
   Table,
@@ -18,10 +20,12 @@ import {
   ColumnFiltersState,
   getSortedRowModel,
 } from "@tanstack/react-table";
+import { TablePagination } from "./table-pagination";
 
 export interface DataTableProps<TData, TValue> {
   data: TData[];
   columns: ColumnDef<TData, TValue>[];
+  onUpdateData?: (id: string, data: Partial<TData>) => Promise<void>;
 }
 
 export interface DataTableRef<TData> {
@@ -30,7 +34,7 @@ export interface DataTableRef<TData> {
 }
 
 const DataTable = <TData, TValue>(
-  { data, columns }: DataTableProps<TData, TValue>,
+  { data, columns, onUpdateData }: DataTableProps<TData, TValue>,
   ref: React.ForwardedRef<DataTableRef<TData>>
 ) => {
   const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
@@ -39,16 +43,25 @@ const DataTable = <TData, TValue>(
   const table = useReactTable({
     data,
     columns,
-    enableRowSelection: true,
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    onColumnFiltersChange: setColumnFilters,
-    onRowSelectionChange: setRowSelection,
+    enableRowSelection: true, // 행 선택 활성화
+    getCoreRowModel: getCoreRowModel(), // 기본 행 모델 가져오기
+    getFilteredRowModel: getFilteredRowModel(), // 필터링된 행 모델 가져오기
+    getPaginationRowModel: getPaginationRowModel(), // 페이지네이션 행 모델 가져오기
+    getSortedRowModel: getSortedRowModel(), // 정렬된 행 모델 가져오기
+    onColumnFiltersChange: setColumnFilters, // 열 필터 변경 시 호출
+    onRowSelectionChange: setRowSelection, // 행 선택 변경 시 호출
     state: {
-      columnFilters,
-      rowSelection,
+      columnFilters, // 열 필터 상태
+      rowSelection, // 행 선택 상태
+    },
+    meta: {
+      onUpdateData, // 데이터 업데이트 함수
+    },
+    initialState: {
+      pagination: {
+        pageSize: 10, // 페이지 크기
+        pageIndex: 0, // 페이지 인덱스
+      },
     },
   });
 
@@ -103,6 +116,9 @@ const DataTable = <TData, TValue>(
           )}
         </TableBody>
       </Table>
+      <div className="flex justify-center py-[2rem]">
+        <TablePagination table={table} pageCount={table.getPageCount()} />
+      </div>
     </div>
   );
 };

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import DataTable, { DataTableRef } from "@/components/Table/data-table";
+import { splashApi } from "@/lib/http/api";
 
 import {
   Select,
@@ -11,14 +12,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useSearchParams } from "next/navigation";
-import { columns, SplashTableData } from "./columns";
+import { columns, SplashTableData, SplashTableUpdateData } from "./columns";
 
 const TableContainer = ({ data }: { data: SplashTableData[] }) => {
   const [tableData, setTableData] = useState<SplashTableData[]>(data);
   const tableRef = useRef<DataTableRef<SplashTableData>>(null);
 
-  const params = useSearchParams();
-  const search = params.get("search");
+  // const params = useSearchParams();
+  // const search = params.get("search");
 
   const handleFilterState = (value: string) => {
     if (value === "all") {
@@ -33,11 +34,14 @@ const TableContainer = ({ data }: { data: SplashTableData[] }) => {
     }
   };
 
-  useEffect(() => {
-    if (search) {
-      setTableData(data.filter((item) => item.email.includes(search)));
+  const handleDataUpdate = async (id: string, data: SplashTableUpdateData) => {
+    try {
+      const res = await splashApi.updateSplash(id, data);
+      setTableData(res);
+    } catch (error) {
+      console.error("Failed to update status:", error);
     }
-  }, [search]);
+  };
 
   return (
     <div className="flex flex-col gap-[1.6rem] rounded-lg bg-white py-[1.6rem]">
@@ -60,7 +64,12 @@ const TableContainer = ({ data }: { data: SplashTableData[] }) => {
           </SelectContent>
         </Select>
       </div>
-      <DataTable data={tableData} columns={columns} ref={tableRef} />
+      <DataTable
+        data={tableData}
+        columns={columns}
+        ref={tableRef}
+        onUpdateData={handleDataUpdate}
+      />
     </div>
   );
 };
