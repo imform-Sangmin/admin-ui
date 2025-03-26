@@ -234,7 +234,7 @@ const MultiSelectorTrigger = forwardRef<
     <div
       ref={ref}
       className={cn(
-        "flex items-center px-[1.2rem] w-max min-w-[32rem] py-[.4rem] gap-[.4rem] rounded-lg border border-input bg-white text-base outline-none transition-colors border-gray-2 [&:disabled]:cursor-not-allowed [&:disabled]:bg-gray-0 [&:disabled_svg]:text-gray-4 [&>span]:line-clamp-1",
+        "flex items-center px-[1.2rem] w-max min-w-[32rem] py-[.4rem] gap-[.4rem] rounded-sm border border-input bg-white text-base outline-none transition-colors border-gray-2 [&:disabled]:cursor-not-allowed [&:disabled]:bg-gray-0 [&:disabled_svg]:text-gray-4 [&>span]:line-clamp-1",
         className
       )}
       {...props}
@@ -322,7 +322,7 @@ const MultiSelectorContent = forwardRef<
 MultiSelectorContent.displayName = "MultiSelectorContent";
 
 const CommandListVariants = cva(
-  "absolute z-10 top-0 w-full max-h-[24rem] min-w-[8rem] flex flex-col overflow-y-auto overflow-x-hidden rounded-md bg-white border border-secondary-2 shadow-md scrollbar-thin scrollbar-track-transparent transition-colors scrollbar-thumb-muted-foreground dark:scrollbar-thumb-muted scrollbar-thumb-rounded-lg",
+  "absolute z-10 top-0 w-full max-h-[24rem] min-w-[8rem] flex flex-col overflow-y-auto overflow-x-hidden rounded-sm bg-white border border-secondary-2 shadow-md scrollbar-thin scrollbar-track-transparent transition-colors scrollbar-thumb-muted-foreground dark:scrollbar-thumb-muted scrollbar-thumb-rounded-md",
   {
     variants: {
       variant: {
@@ -356,7 +356,7 @@ const MultiSelectorList = forwardRef<
 MultiSelectorList.displayName = "MultiSelectorList";
 
 const MultiSelectorItemVariants = cva(
-  "flex justify-between rounded-md cursor-pointer py-[1.3rem] px-[1.6rem] text-sm transition-colors hover:bg-primary-cyan-light [&_svg]:size-[2.4rem]",
+  "flex justify-between rounded-sm cursor-pointer py-[1.3rem] px-[1.6rem] text-sm transition-colors hover:bg-primary-cyan-light [&_svg]:size-[2.4rem]",
   {
     variants: {
       variant: {

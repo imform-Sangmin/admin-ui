@@ -58,9 +58,10 @@
   --states-blue: theme("colors.states.blue");
   --states-green: theme("colors.states.green");
 
-  --radius: 0.8rem;
+  --radius-lg: 1.2rem;
+  --radius-md: 0.8rem;
   --radius-sm: 0.6rem;
-  --header-height: 10rem;
+  --header-height: 8rem;
 }
 
 html {

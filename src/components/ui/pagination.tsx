@@ -55,6 +55,9 @@ const PaginationVariants = cva(
         active: "bg-gray-9 text-white",
       },
     },
+    defaultVariants: {
+      variant: "default",
+    },
   }
 );
 
@@ -84,7 +87,6 @@ const PaginationPrevious = ({
 }: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
     aria-label="Go to previous page"
-    size="default"
     className={cn("p-0", className)}
     {...props}
   >
@@ -99,7 +101,6 @@ const PaginationFirst = ({
 }: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
     aria-label="Go to first page"
-    size="default"
     className={cn("p-0", className)}
     {...props}
   >
@@ -114,7 +115,6 @@ const PaginationNext = ({
 }: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
     aria-label="Go to next page"
-    size="default"
     className={cn("p-0", className)}
     {...props}
   >
@@ -129,7 +129,6 @@ const PaginationLast = ({
 }: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
     aria-label="Go to last page"
-    size="default"
     className={cn("p-0", className)}
     {...props}
   >

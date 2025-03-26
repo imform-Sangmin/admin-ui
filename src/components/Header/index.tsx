@@ -9,7 +9,7 @@ export const Header = () => {
   return (
     <header
       className={cn(
-        "fixed top-0 right-0 w-[calc(100%-var(--sidebar-width))] ml-auto py-[2.8rem] px-[4rem] pl-[2rem] flex gap-[1.5rem] transition-all duration-300 box-border bg-background shadow-sm",
+        "fixed top-0 right-0 w-[calc(100%-var(--sidebar-width))] h-[var(--header-height)] ml-auto px-[4rem] flex items-center gap-[1.5rem] transition-all duration-300 box-border bg-background shadow-sm",
         sidebarState?.open
           ? "w-[calc(100%-var(--sidebar-width))]"
           : "w-[calc(100%-calc(var(--sidebar-width-icon)_+_1.6rem))]"

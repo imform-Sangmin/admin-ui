@@ -36,12 +36,15 @@ const FormSchema = z.object({
   select2: z.string({
     required_error: "Please select an email to display.",
   }),
-  select3: z.array(
+  select3: z.string({
+    required_error: "Please select an email to display.",
+  }),
+  select4: z.array(
     z.string({
       required_error: "Please select an email to display.",
     })
   ),
-  select4: z.array(
+  select5: z.array(
     z.string({
       required_error: "Please select an email to display.",
     })
@@ -59,8 +62,8 @@ export default function Home() {
     resolver: zodResolver(FormSchema),
     mode: "onChange",
     defaultValues: {
-      select3: [],
       select4: [],
+      select5: [],
       stepper: 0,
     },
   });
@@ -194,11 +197,36 @@ export default function Home() {
                 { label: "옵션십오", value: "15" },
               ]}
             />
+            <FormFieldSelect
+              form={form}
+              name="select3"
+              label="라벨"
+              placeholder="선택해주세요"
+              description="도움말영역-오류"
+              elSize={"xs"}
+              options={[
+                { label: "옵션하나", value: "1" },
+                { label: "옵션둘", value: "2" },
+                { label: "옵션셋", value: "3" },
+                { label: "옵션넷", value: "4" },
+                { label: "옵션다섯", value: "5" },
+                { label: "옵션여섯", value: "6" },
+                { label: "옵션일곱", value: "7" },
+                { label: "옵션여덟", value: "8" },
+                { label: "옵션아홉", value: "9" },
+                { label: "옵션십", value: "10" },
+                { label: "옵션십일", value: "11" },
+                { label: "옵션십이", value: "12" },
+                { label: "옵션십삼", value: "13" },
+                { label: "옵션십사", value: "14" },
+                { label: "옵션십오", value: "15" },
+              ]}
+            />
           </div>
           <h2>MultiSelect</h2>
           <FormFieldMultiSelect
             form={form}
-            name="select3"
+            name="select4"
             label="라벨"
             placeholder="선택해주세요"
             description="도움말영역-오류"
@@ -211,7 +239,7 @@ export default function Home() {
           />
           <FormFieldMultiSelect
             form={form}
-            name="select4"
+            name="select5"
             label="라벨"
             placeholder="선택해주세요"
             description="도움말영역-오류"

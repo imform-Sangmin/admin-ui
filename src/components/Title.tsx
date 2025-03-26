@@ -3,7 +3,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
 
-const TitleVariants = cva("px-[5.6rem] title my-[3.2rem]", {
+const TitleVariants = cva("title my-[3.2rem]", {
   variants: {
     variant: {
       default: "",

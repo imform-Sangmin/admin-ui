@@ -5,7 +5,7 @@ import { Button } from "./button";
 import { Icon } from "../Icons";
 
 const InputVariants = cva(
-  "peer flex text-base bg-transparent file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-gray-4 focus-visible:outline-none disabled:cursor-not-allowed disabled:text-gray-4 disabled:bg-gray-0 focus:border-primary-cyan",
+  "peer flex text-base w-full bg-transparent file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-gray-4 focus-visible:outline-none disabled:cursor-not-allowed disabled:text-gray-4 disabled:bg-gray-0 focus:border-primary-cyan",
   {
     variants: {
       variant: {
@@ -15,8 +15,8 @@ const InputVariants = cva(
         error: "border-states-red focus:border-states-red",
       },
       elSize: {
-        default: "pl-[1.6rem] pr-[2.4rem] py-[1.5rem]",
-        sm: "pl-[1.2rem] pr-[1.6rem] py-[0.9rem] text-md",
+        default: "pl-[1.6rem] pr-[2.4rem] h-[5.6rem]",
+        sm: "pl-[1.2rem] pr-[1.6rem] h-[4rem] text-md",
       },
     },
     defaultVariants: {
@@ -51,13 +51,16 @@ const InputClearButtonVariants = cva(
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof InputVariants> {
-  handleClear: () => void;
+  handleClear?: () => void;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, variant, elSize, type, handleClear, ...props }, ref) => {
+  (
+    { className, variant, elSize, type, handleClear = () => {}, ...props },
+    ref
+  ) => {
     return (
-      <div className="relative">
+      <div className="relative w-full">
         <input
           type={type}
           className={cn(InputVariants({ variant, elSize, className }))}

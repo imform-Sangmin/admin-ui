@@ -14,9 +14,11 @@ import { useRouter } from "next/router";
 const PaginationRender = ({
   totalPage,
   pageSize,
+  className,
 }: {
   totalPage: number;
   pageSize: number;
+  className?: string;
 }) => {
   const router = useRouter();
   const currentPage = router.query.page
@@ -24,7 +26,7 @@ const PaginationRender = ({
     : 1;
 
   return (
-    <Pagination>
+    <Pagination className={className}>
       <PaginationContent>
         <PaginationItem className="mr-[1.6rem]">
           <PaginationFirst href={`/?page=1`} />
