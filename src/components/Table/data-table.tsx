@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef, useImperativeHandle, useState } from "react";
 import {
   Table,
   TableBody,
@@ -12,6 +12,11 @@ import {
   flexRender,
   getCoreRowModel,
   useReactTable,
+  Table as TableInstance,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  ColumnFiltersState,
+  getSortedRowModel,
 } from "@tanstack/react-table";
 
 export interface DataTableProps<TData, TValue> {
@@ -19,15 +24,40 @@ export interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
 }
 
-const DataTable = <TData, TValue>({
-  data,
-  columns,
-}: DataTableProps<TData, TValue>) => {
+export interface DataTableRef<TData> {
+  getSelectedRows: () => TData[];
+  table: TableInstance<TData>;
+}
+
+const DataTable = <TData, TValue>(
+  { data, columns }: DataTableProps<TData, TValue>,
+  ref: React.ForwardedRef<DataTableRef<TData>>
+) => {
+  const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+
   const table = useReactTable({
     data,
     columns,
+    enableRowSelection: true,
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    onRowSelectionChange: setRowSelection,
+    state: {
+      columnFilters,
+      rowSelection,
+    },
   });
+
+  useImperativeHandle(ref, () => ({
+    getSelectedRows: () => {
+      return table.getSelectedRowModel().rows.map((row) => row.original);
+    },
+    table: table,
+  }));
 
   return (
     <div className="w-full">
@@ -76,6 +106,9 @@ const DataTable = <TData, TValue>({
     </div>
   );
 };
-DataTable.displayName = "DataTable";
 
-export default DataTable;
+export default forwardRef(DataTable) as <TData, TValue>(
+  props: DataTableProps<TData, TValue> & {
+    ref?: React.ForwardedRef<DataTableRef<TData>>;
+  }
+) => JSX.Element;

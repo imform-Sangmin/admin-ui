@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import DataTable from "@/components/Table/data-table";
+import { useEffect, useRef, useState } from "react";
+import DataTable, { DataTableRef } from "@/components/Table/data-table";
 
 import {
   Select,
@@ -11,13 +11,27 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useSearchParams } from "next/navigation";
-import { columns, SplashTableData } from "./Columns";
+import { columns, SplashTableData } from "./columns";
 
 const TableContainer = ({ data }: { data: SplashTableData[] }) => {
   const [tableData, setTableData] = useState<SplashTableData[]>(data);
+  const tableRef = useRef<DataTableRef<SplashTableData>>(null);
 
   const params = useSearchParams();
   const search = params.get("search");
+
+  const handleFilterState = (value: string) => {
+    if (value === "all") {
+      tableRef.current?.table.setColumnFilters([]);
+    } else {
+      tableRef.current?.table.setColumnFilters([
+        {
+          id: "status",
+          value: value === "active" ? true : false,
+        },
+      ]);
+    }
+  };
 
   useEffect(() => {
     if (search) {
@@ -33,15 +47,7 @@ const TableContainer = ({ data }: { data: SplashTableData[] }) => {
         </p>
         <Select
           onValueChange={(value) => {
-            if (value === "all") {
-              setTableData(data);
-            } else {
-              setTableData(
-                data.filter((item) =>
-                  value === "active" ? item.status : !item.status
-                )
-              );
-            }
+            handleFilterState(value);
           }}
         >
           <SelectTrigger elSize={"sm"} className="min-w-[10rem]">
@@ -54,7 +60,7 @@ const TableContainer = ({ data }: { data: SplashTableData[] }) => {
           </SelectContent>
         </Select>
       </div>
-      <DataTable data={tableData} columns={columns} />
+      <DataTable data={tableData} columns={columns} ref={tableRef} />
     </div>
   );
 };
