@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 const FormContainer = () => {
   const form = useForm({
     defaultValues: {
-      name: "",
+      search: "",
     },
   });
 
@@ -20,7 +20,7 @@ const FormContainer = () => {
             </p>
             <FormFieldInput
               form={form}
-              name="name"
+              name="search"
               placeholder="검색어를 입력해주세요."
               elSize={"sm"}
             />
