@@ -12,6 +12,8 @@ export type SplashTableData = {
   amount: number;
 };
 
+export type SplashTableUpdateData = Partial<SplashTableData>;
+
 export const columns: ColumnDef<SplashTableData>[] = [
   {
     accessorKey: "index",
@@ -30,10 +32,9 @@ export const columns: ColumnDef<SplashTableData>[] = [
       <Switch
         checked={row.original.status}
         onCheckedChange={() => {
-          console.log(table.options.data);
-
-          console.log(row.original.id);
-          console.log(!row.original.status);
+          table.options.meta?.onUpdateData?.(row.original.id, {
+            status: !row.original.status,
+          });
         }}
       />
     ),

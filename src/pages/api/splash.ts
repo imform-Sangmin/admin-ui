@@ -1,13 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import TABLE_DATA, { TableData } from "@/consts/TableData";
+import TABLE_DATA from "@/consts/TableData";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<TableData[]>
-) {
-  const data = req.body.data ? [...req.body.data] : [...TABLE_DATA];
+let data = [...TABLE_DATA];
 
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case "GET":
       res.status(200).json(data);
@@ -16,15 +13,34 @@ export default function handler(
       res.status(200).json([...data, req.body]);
       break;
     case "PUT":
-      res
-        .status(200)
-        .json(
-          data.map((item) =>
-            item.id === req.body.id
-              ? { ...item, status: req.body.status }
-              : item
-          )
+      const _req = JSON.parse(req.body);
+      if (_req.id && _req.data) {
+        console.log(_req.data?.status);
+
+        data = data.map((item) =>
+          item.id === _req.id
+            ? {
+                ...item,
+                status:
+                  _req.data?.status !== undefined
+                    ? _req.data?.status
+                    : item.status,
+                amount:
+                  _req.data?.amount !== undefined
+                    ? _req.data?.amount
+                    : item.amount,
+                email:
+                  _req.data?.email !== undefined
+                    ? _req.data?.email
+                    : item.email,
+              }
+            : item
         );
+
+        res.status(200).json(data);
+      } else {
+        res.status(400).json({ error: "Invalid request" });
+      }
       break;
     case "DELETE":
       res.status(200).json(data.filter((item) => item.id !== req.body.id));

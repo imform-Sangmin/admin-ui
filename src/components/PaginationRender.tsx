@@ -9,28 +9,39 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "./ui/pagination";
-import { useRouter } from "next/router";
+
+interface PaginationRenderProps {
+  totalPage: number;
+  pageSize: number;
+  className?: string;
+  onPageChange?: (page: number) => void;
+  currentPage?: number;
+}
 
 const PaginationRender = ({
   totalPage,
   pageSize,
   className,
-}: {
-  totalPage: number;
-  pageSize: number;
-  className?: string;
-}) => {
-  const router = useRouter();
-  const currentPage = router.query.page
-    ? parseInt(router.query.page as string)
-    : 1;
+  onPageChange,
+  currentPage = 1,
+}: PaginationRenderProps) => {
+  const handleClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    page: number
+  ) => {
+    e.preventDefault();
+    onPageChange?.(page);
+  };
 
   return (
     <Pagination className={className}>
       <PaginationContent>
         <PaginationItem className="mr-[1.6rem]">
-          <PaginationFirst href={`/?page=1`} />
-          <PaginationPrevious href={`/?page=${currentPage - 1}`} />
+          <PaginationFirst href="#" onClick={(e) => handleClick(e, 1)} />
+          <PaginationPrevious
+            href="#"
+            onClick={(e) => handleClick(e, Math.max(1, currentPage - 1))}
+          />
         </PaginationItem>
         {Array.from({ length: pageSize }, (_, i) => {
           const page =
@@ -39,8 +50,9 @@ const PaginationRender = ({
           return (
             <PaginationItem key={i}>
               <PaginationLink
+                href="#"
                 isActive={currentPage === page}
-                href={`/?page=${page}`}
+                onClick={(e) => handleClick(e, page)}
               >
                 {page}
               </PaginationLink>
@@ -55,8 +67,13 @@ const PaginationRender = ({
             </PaginationItem>
           )}
         <PaginationItem className="ml-[1.6rem]">
-          <PaginationNext href={`/?page=${currentPage + 1}`} />
-          <PaginationLast href={`/?page=${totalPage}`} />
+          <PaginationNext
+            href="#"
+            onClick={(e) =>
+              handleClick(e, Math.min(totalPage, currentPage + 1))
+            }
+          />
+          <PaginationLast href="#" onClick={(e) => handleClick(e, totalPage)} />
         </PaginationItem>
       </PaginationContent>
     </Pagination>
