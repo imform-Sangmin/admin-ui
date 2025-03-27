@@ -13,7 +13,7 @@ export const Layout = ({ children }: Props) => {
       <SidebarProvider>
         <CustomSidebar />
         <Header />
-        <div className="pt-[var(--header-height)] w-full px-[5.6rem]">
+        <div className="pt-[var(--header-height)] w-full px-[5.6rem] pb-[1.6rem]">
           <main>{children}</main>
         </div>
         <Toaster />

@@ -26,6 +26,7 @@ export interface DataTableProps<TData, TValue> {
   data: TData[];
   columns: ColumnDef<TData, TValue>[];
   onUpdateData?: (id: string, data: Partial<TData>) => Promise<void>;
+  onDeleteData?: (id: string) => Promise<void>;
 }
 
 export interface DataTableRef<TData> {
@@ -34,7 +35,7 @@ export interface DataTableRef<TData> {
 }
 
 const DataTable = <TData, TValue>(
-  { data, columns, onUpdateData }: DataTableProps<TData, TValue>,
+  { data, columns, onUpdateData, onDeleteData }: DataTableProps<TData, TValue>,
   ref: React.ForwardedRef<DataTableRef<TData>>
 ) => {
   const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
@@ -56,6 +57,7 @@ const DataTable = <TData, TValue>(
     },
     meta: {
       onUpdateData, // 데이터 업데이트 함수
+      onDeleteData, // 데이터 삭제 함수
     },
     initialState: {
       pagination: {

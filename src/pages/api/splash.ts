@@ -5,6 +5,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 let data = [...TABLE_DATA];
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  const _req = req.body ? JSON.parse(req.body) : null;
+
   switch (req.method) {
     case "GET":
       res.status(200).json(data);
@@ -13,7 +15,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       res.status(200).json([...data, req.body]);
       break;
     case "PUT":
-      const _req = JSON.parse(req.body);
       if (_req.id && _req.data) {
         console.log(_req.data?.status);
 
@@ -43,7 +44,12 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       }
       break;
     case "DELETE":
-      res.status(200).json(data.filter((item) => item.id !== req.body.id));
+      if (_req.id) {
+        data = data.filter((item) => item.id !== _req.id);
+        res.status(200).json(data);
+      } else {
+        res.status(400).json({ error: "Invalid request" });
+      }
       break;
     default:
       res.status(405).end();

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import DataTable, { DataTableRef } from "@/components/Table/data-table";
 import { splashApi } from "@/lib/http/api";
 
@@ -11,15 +11,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useSearchParams } from "next/navigation";
 import { columns, SplashTableData, SplashTableUpdateData } from "./columns";
 
 const TableContainer = ({ data }: { data: SplashTableData[] }) => {
   const [tableData, setTableData] = useState<SplashTableData[]>(data);
   const tableRef = useRef<DataTableRef<SplashTableData>>(null);
-
-  // const params = useSearchParams();
-  // const search = params.get("search");
 
   const handleFilterState = (value: string) => {
     if (value === "all") {
@@ -40,6 +36,15 @@ const TableContainer = ({ data }: { data: SplashTableData[] }) => {
       setTableData(res);
     } catch (error) {
       console.error("Failed to update status:", error);
+    }
+  };
+
+  const handleDataDelete = async (id: string) => {
+    try {
+      const res = await splashApi.deleteSplash(id);
+      setTableData(res);
+    } catch (error) {
+      console.error("Failed to delete status:", error);
     }
   };
 
@@ -69,6 +74,7 @@ const TableContainer = ({ data }: { data: SplashTableData[] }) => {
         columns={columns}
         ref={tableRef}
         onUpdateData={handleDataUpdate}
+        onDeleteData={handleDataDelete}
       />
     </div>
   );

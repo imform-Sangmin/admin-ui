@@ -2,6 +2,7 @@
 
 import { Icon } from "@/components/Icons";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Switch } from "@/components/ui/switch";
 import { ColumnDef } from "@tanstack/react-table";
 
@@ -16,9 +17,31 @@ export type SplashTableUpdateData = Partial<SplashTableData>;
 
 export const columns: ColumnDef<SplashTableData>[] = [
   {
+    accessorKey: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+  },
+  {
     accessorKey: "index",
     header: () => <div>NO</div>,
-    cell: ({ row }) => <div className="text-center">{row.index + 1}</div>,
+    cell: ({ row }) => {
+      return <div className="text-center">{row.index + 1}</div>;
+    },
   },
   {
     accessorKey: "email",
@@ -47,8 +70,15 @@ export const columns: ColumnDef<SplashTableData>[] = [
   {
     accessorKey: "isDeleted",
     header: () => <div>삭제</div>,
-    cell: () => (
-      <Button variant={"secondary3"} type="button" size={"sm"}>
+    cell: ({ row, table }) => (
+      <Button
+        variant={"secondary3"}
+        type="button"
+        size={"sm"}
+        onClick={() => {
+          table.options.meta?.onDeleteData?.(row.original.id);
+        }}
+      >
         삭제
         <Icon type="trash" />
       </Button>

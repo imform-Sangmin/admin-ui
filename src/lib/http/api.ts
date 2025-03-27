@@ -15,6 +15,13 @@ const splashApi = {
     });
     return res.json();
   },
+  deleteSplash: async (id: string) => {
+    const res = await fetch(`/api/splash`, {
+      method: "DELETE",
+      body: JSON.stringify({ id }),
+    });
+    return res.json();
+  },
 };
 
 export { splashApi };

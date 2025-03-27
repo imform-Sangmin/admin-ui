@@ -14,6 +14,7 @@ export function TablePagination<TData>({
 
   const handlePageChange = (page: number) => {
     table.setPageIndex(page - 1);
+    table.initialState.pagination.pageIndex = page - 1;
   };
 
   return (
