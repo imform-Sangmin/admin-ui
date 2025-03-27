@@ -1,6 +1,11 @@
 "use client";
 
-import React, { forwardRef, useImperativeHandle, useState } from "react";
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
 import {
   Table,
   TableBody,
@@ -27,6 +32,7 @@ export interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   onUpdateData?: (id: string, data: Partial<TData>) => Promise<void>;
   onDeleteData?: (id: string) => Promise<void>;
+  onRowCountChange?: (count: number) => void;
 }
 
 export interface DataTableRef<TData> {
@@ -35,11 +41,21 @@ export interface DataTableRef<TData> {
 }
 
 const DataTable = <TData, TValue>(
-  { data, columns, onUpdateData, onDeleteData }: DataTableProps<TData, TValue>,
+  {
+    data,
+    columns,
+    onUpdateData,
+    onDeleteData,
+    onRowCountChange,
+  }: DataTableProps<TData, TValue>,
   ref: React.ForwardedRef<DataTableRef<TData>>
 ) => {
   const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 10,
+  });
 
   const table = useReactTable({
     data,
@@ -51,21 +67,24 @@ const DataTable = <TData, TValue>(
     getSortedRowModel: getSortedRowModel(), // 정렬된 행 모델 가져오기
     onColumnFiltersChange: setColumnFilters, // 열 필터 변경 시 호출
     onRowSelectionChange: setRowSelection, // 행 선택 변경 시 호출
+    onPaginationChange: setPagination, // 페이지네이션 변경 시 호출
     state: {
       columnFilters, // 열 필터 상태
       rowSelection, // 행 선택 상태
+      pagination, // 페이지네이션 상태
     },
     meta: {
       onUpdateData, // 데이터 업데이트 함수
       onDeleteData, // 데이터 삭제 함수
     },
-    initialState: {
-      pagination: {
-        pageSize: 10, // 페이지 크기
-        pageIndex: 0, // 페이지 인덱스
-      },
-    },
+    autoResetPageIndex: false,
   });
+
+  useEffect(() => {
+    if (onRowCountChange) {
+      onRowCountChange(table.getRowCount());
+    }
+  }, [columnFilters, table, onRowCountChange, data]);
 
   useImperativeHandle(ref, () => ({
     getSelectedRows: () => {
