@@ -38,7 +38,10 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
             : item
         );
 
-        res.status(200).json(data);
+        res.status(200).json({
+          data,
+          success: true,
+        });
       } else {
         res.status(400).json({ error: "Invalid request" });
       }
