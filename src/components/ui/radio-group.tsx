@@ -10,7 +10,7 @@ const RadioGroup = React.forwardRef<
 >(({ className, ...props }, ref) => {
   return (
     <RadioGroupPrimitive.Root
-      className={cn("flex flex-col gap-[1.2rem]", className)}
+      className={cn("flex gap-[1.2rem]", className)}
       {...props}
       ref={ref}
     />

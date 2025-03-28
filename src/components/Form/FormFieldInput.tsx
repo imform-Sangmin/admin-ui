@@ -47,6 +47,7 @@ type FormFieldInputProps<T extends FieldValues, U> = Omit<
   icon?: React.ReactNode;
   button?: React.ReactNode;
   required?: boolean;
+  className?: string;
 } & VariantProps<typeof InputVariants>;
 
 export default function FormFieldInput<T extends FieldValues, U>({
@@ -60,6 +61,7 @@ export default function FormFieldInput<T extends FieldValues, U>({
   button,
   elSize,
   required,
+  className,
   ...props
 }: FormFieldInputProps<T, U>) {
   return (
@@ -75,7 +77,7 @@ export default function FormFieldInput<T extends FieldValues, U>({
           inputVariant = "complete";
         }
         return (
-          <FormItem>
+          <FormItem className={className}>
             {label && <FormLabel required={required}>{label}</FormLabel>}
 
             <FormControl>

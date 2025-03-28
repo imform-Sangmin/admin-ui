@@ -9,7 +9,39 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   switch (req.method) {
     case "GET":
-      res.status(200).json(data);
+      let filteredData = [...data];
+
+      if (req.query) {
+        if (req.query.email && req.query.email !== "undefined") {
+          console.log("email");
+
+          const searchQuery = req.query.email.toString().toLowerCase();
+          filteredData = filteredData.filter((item) =>
+            item.email.toLowerCase().includes(searchQuery)
+          );
+        }
+
+        if (req.query.name && req.query.name !== "undefined") {
+          console.log("name");
+          const searchQuery = req.query.name.toString().toLowerCase();
+          filteredData = filteredData.filter((item) =>
+            item.name.toLowerCase().includes(searchQuery)
+          );
+        }
+
+        if (req.query.status && req.query.status !== "undefined") {
+          console.log("status");
+          filteredData = filteredData.filter((item) =>
+            req.query.status === "active"
+              ? item.status === true
+              : req.query.status === "inactive"
+              ? item.status === false
+              : item
+          );
+        }
+      }
+
+      res.status(200).json(filteredData);
       break;
     case "POST":
       res.status(200).json([...data, req.body]);

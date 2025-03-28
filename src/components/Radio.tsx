@@ -24,13 +24,21 @@ const RadioVariants = cva(
 interface RadioPropsType {
   options: { label: string; value: string }[];
   disabled?: boolean;
+  className?: string;
 }
 
 type RadioProps = RadioPropsType & VariantProps<typeof RadioVariants>;
 
-const Radio = ({ options, size, variant, disabled, ...props }: RadioProps) => {
+const Radio = ({
+  options,
+  size,
+  variant,
+  disabled,
+  className,
+  ...props
+}: RadioProps) => {
   return (
-    <RadioGroup disabled={disabled} {...props}>
+    <RadioGroup disabled={disabled} {...props} className={className}>
       {options.map((option) => (
         <div
           className={cn(RadioVariants({ size, variant }))}

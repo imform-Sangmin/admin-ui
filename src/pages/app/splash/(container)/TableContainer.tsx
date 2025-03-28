@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DataTable, { DataTableRef } from "@/components/Table/data-table";
 import { splashApi } from "@/lib/http/api";
 
@@ -12,6 +12,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { columns, SplashTableData, SplashTableUpdateData } from "./columns";
+import { Button } from "@/components/ui/button";
+import { Icon } from "@/components/Icons";
 
 const TableContainer = ({ data }: { data: SplashTableData[] }) => {
   const [tableData, setTableData] = useState<SplashTableData[]>(data);
@@ -53,26 +55,51 @@ const TableContainer = ({ data }: { data: SplashTableData[] }) => {
     }
   };
 
+  const handleDeleteSelected = () => {
+    const selectedRows = tableRef.current?.table.getSelectedRowModel().rows;
+    if (selectedRows) {
+      selectedRows.forEach((row) => {
+        handleDataDelete(row.original.id);
+        tableRef.current?.table.toggleAllPageRowsSelected(false);
+      });
+    }
+  };
+
+  useEffect(() => {
+    setTableData(data);
+  }, [data]);
+
   return (
     <div className="flex flex-col gap-[1.6rem] rounded-lg bg-white py-[1.6rem]">
       <div className="flex justify-between items-end pl-[2.4rem] pr-[4rem]">
         <p className="text-[1.6rem] font-bold">
           총 <span className="text-states-red">{rowCount}</span>건
         </p>
-        <Select
-          onValueChange={(value) => {
-            handleFilterState(value);
-          }}
-        >
-          <SelectTrigger elSize={"sm"} className="min-w-[10rem]">
-            <SelectValue placeholder="선택" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">전체</SelectItem>
-            <SelectItem value="active">활성</SelectItem>
-            <SelectItem value="inactive">비활성</SelectItem>
-          </SelectContent>
-        </Select>
+        <div className="flex gap-[.8rem]">
+          <Button
+            type="button"
+            variant={"secondary2"}
+            onClick={handleDeleteSelected}
+            size={"sm"}
+          >
+            선택 삭제
+            <Icon type="trash" />
+          </Button>
+          <Select
+            onValueChange={(value) => {
+              handleFilterState(value);
+            }}
+          >
+            <SelectTrigger elSize={"sm"} className="min-w-[10rem]">
+              <SelectValue placeholder="선택" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">전체</SelectItem>
+              <SelectItem value="active">활성</SelectItem>
+              <SelectItem value="inactive">비활성</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
       <DataTable
         data={tableData}

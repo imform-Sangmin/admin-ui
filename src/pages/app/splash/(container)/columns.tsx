@@ -9,6 +9,7 @@ import { ColumnDef } from "@tanstack/react-table";
 export type SplashTableData = {
   id: string;
   email: string;
+  name: string;
   status: boolean;
   amount: number;
 };
@@ -44,13 +45,18 @@ export const columns: ColumnDef<SplashTableData>[] = [
     },
   },
   {
+    accessorKey: "name",
+    header: () => <div>이름</div>,
+    cell: ({ row }) => <div className="text-left">{row.original.name}</div>,
+  },
+  {
     accessorKey: "email",
     header: () => <div>이메일</div>,
-    cell: ({ row }) => <div>{row.original.email}</div>,
+    cell: ({ row }) => <div className="text-left">{row.original.email}</div>,
   },
   {
     accessorKey: "status",
-    header: () => <div>상태</div>,
+    header: () => <div>노출여부</div>,
     cell: ({ row, table }) => (
       <Switch
         checked={row.original.status}

@@ -12,7 +12,7 @@ const SelectGroup = SelectPrimitive.Group;
 const SelectValue = SelectPrimitive.Value;
 
 export const SelectVariants = cva(
-  "flex items-center justify-between w-max min-w-[32rem] gap-[1rem] whitespace-nowrap rounded-sm border border-input bg-white text-base outline-none transition-colors data-[placeholder]:text-gray-4 focus:outline-none [&:disabled]:cursor-not-allowed [&:disabled]:bg-gray-0 [&:disabled_svg]:text-gray-4 [&>span]:line-clamp-1 focus:border-primary-cyan",
+  "flex items-center justify-between w-full gap-[1rem] whitespace-nowrap rounded-sm border border-input bg-white text-base outline-none transition-colors data-[placeholder]:text-gray-4 focus:outline-none [&:disabled]:cursor-not-allowed [&:disabled]:bg-gray-0 [&:disabled_svg]:text-gray-4 [&>span]:line-clamp-1 focus:border-primary-cyan",
   {
     variants: {
       variant: {
@@ -21,8 +21,8 @@ export const SelectVariants = cva(
         error: "border-states-red",
       },
       elSize: {
-        default: "px-[1.2rem] py-[0.9rem]",
-        sm: "px-[1.2rem] py-[0.6rem] text-md",
+        default: "px-[1.2rem] h-[4rem]",
+        sm: "px-[1.2rem] h-[3.2rem] text-md",
         xs: "border-none bg-transparent min-w-max px-[1.2rem] py-[0.3rem] text-sm focus:text-primary-cyan-dark",
       },
     },
