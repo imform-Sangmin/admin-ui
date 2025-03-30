@@ -33,6 +33,9 @@ export interface DataTableProps<TData, TValue> {
   onUpdateData?: (id: string, data: Partial<TData>) => Promise<void>;
   onDeleteData?: (id: string) => Promise<void>;
   onRowCountChange?: (count: number) => void;
+  state: {
+    deletingRows?: Set<string>;
+  };
 }
 
 export interface DataTableRef<TData> {
@@ -47,6 +50,7 @@ const DataTable = <TData, TValue>(
     onUpdateData,
     onDeleteData,
     onRowCountChange,
+    state = {},
   }: DataTableProps<TData, TValue>,
   ref: React.ForwardedRef<DataTableRef<TData>>
 ) => {
@@ -72,6 +76,7 @@ const DataTable = <TData, TValue>(
       columnFilters, // 열 필터 상태
       rowSelection, // 행 선택 상태
       pagination, // 페이지네이션 상태
+      ...state,
     },
     meta: {
       onUpdateData, // 데이터 업데이트 함수

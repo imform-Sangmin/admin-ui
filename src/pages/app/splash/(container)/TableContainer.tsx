@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/Icons";
 
 const TableContainer = ({ data }: { data: SplashTableData[] }) => {
+  const [deletingRows, setDeletingRows] = useState<Set<string>>(new Set());
   const [tableData, setTableData] = useState<SplashTableData[]>(data);
   const tableRef = useRef<DataTableRef<SplashTableData>>(null);
   const [rowCount, setRowCount] = useState<number>(tableData.length);
@@ -48,10 +49,18 @@ const TableContainer = ({ data }: { data: SplashTableData[] }) => {
 
   const handleDataDelete = async (id: string) => {
     try {
+      setDeletingRows((prev) => new Set([...prev, id]));
       const res = await splashApi.deleteSplash(id);
       setTableData(res);
     } catch (error) {
       console.error("Failed to delete status:", error);
+    } finally {
+      console.log(deletingRows);
+      setDeletingRows((prev) => {
+        const newSet = new Set(prev);
+        newSet.delete(id);
+        return newSet;
+      });
     }
   };
 
@@ -60,8 +69,8 @@ const TableContainer = ({ data }: { data: SplashTableData[] }) => {
     if (selectedRows) {
       selectedRows.forEach((row) => {
         handleDataDelete(row.original.id);
-        tableRef.current?.table.toggleAllPageRowsSelected(false);
       });
+      tableRef.current?.table.toggleAllPageRowsSelected(false);
     }
   };
 
@@ -108,6 +117,9 @@ const TableContainer = ({ data }: { data: SplashTableData[] }) => {
         onUpdateData={handleDataUpdate}
         onDeleteData={handleDataDelete}
         onRowCountChange={setRowCount}
+        state={{
+          deletingRows,
+        }}
       />
     </div>
   );

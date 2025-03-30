@@ -4,7 +4,7 @@ import { Icon } from "@/components/Icons";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Switch } from "@/components/ui/switch";
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef, TableState } from "@tanstack/react-table";
 
 export type SplashTableData = {
   id: string;
@@ -76,18 +76,26 @@ export const columns: ColumnDef<SplashTableData>[] = [
   {
     accessorKey: "isDeleted",
     header: () => <div>삭제</div>,
-    cell: ({ row, table }) => (
-      <Button
-        variant={"secondary3"}
-        type="button"
-        size={"sm"}
-        onClick={() => {
-          table.options.meta?.onDeleteData?.(row.original.id);
-        }}
-      >
-        삭제
-        <Icon type="trash" />
-      </Button>
-    ),
+    cell: ({ row, table }) => {
+      const deletingRows =
+        (table.getState() as TableState & { deletingRows?: Set<string> })
+          ?.deletingRows || new Set();
+      const isDeleting = deletingRows?.has(row.original.id);
+
+      return (
+        <Button
+          variant={"secondary3"}
+          type="button"
+          size={"sm"}
+          onClick={() => {
+            table.options.meta?.onDeleteData?.(row.original.id);
+          }}
+          disabled={isDeleting}
+        >
+          삭제
+          <Icon type="trash" />
+        </Button>
+      );
+    },
   },
 ];

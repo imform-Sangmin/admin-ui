@@ -80,8 +80,11 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       break;
     case "DELETE":
       if (_req.id) {
+        const resTime = 1000 + Math.random() * 1000;
         data = data.filter((item) => item.id !== _req.id);
-        res.status(200).json(data);
+        setTimeout(() => {
+          res.status(200).json(data);
+        }, resTime);
       } else {
         res.status(400).json({ error: "Invalid request" });
       }
